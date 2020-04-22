@@ -1,10 +1,12 @@
 class BodyPiece:
 
     def __init__(self, pos=(0, 0)):
-        self.pos = pos
+        self.x = pos[0]
+        self.y = pos[1]
 
     def change_pos(self, pos):
-        self.pos = pos
+        self.x = pos[0]
+        self.y = pos[1]
 
     def get_pos(self):
-        return self.pos
+        return self.x, self.y
