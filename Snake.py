@@ -10,9 +10,6 @@ class Snake:
         self.body = []
         self.grow_pending = False
 
-    def grow(self):
-        self.grow_pending = True
-
     def move(self, moving_direction):
 
         previous_head_pos = self.head.move(moving_direction)
@@ -22,17 +19,17 @@ class Snake:
             if not self.body:
                 self.body.append(BodyPiece.BodyPiece(previous_head_pos))
             else:
-                self.body.append(copy.deepcopy(self.body[-1]))
+                self.body[0].fat = True
 
         if self.body:
+            if self.body[-1].fat:
+                self.body[-1].fat = False
+                self.body.append(copy.deepcopy(self.body[-1]))
             self.body[-1].change_pos(previous_head_pos)
             self.body.insert(0, self.body.pop())
 
-    def get_head_pos(self):
-        return self.head.get_pos()
-
     def get_slots_occupied_by_body(self):
-        return [self.head.get_pos()] + [bp.get_pos() for bp in self.body]
+        return [bp.get_pos() for bp in self.body]
 
     def check_collision(self):
         if self.head.get_pos() in [bp.get_pos() for bp in self.body]:
