@@ -2,10 +2,12 @@ import BodyPiece
 import Head
 import copy
 
+from Vector import Vector
+
 
 class Snake:
 
-    def __init__(self, pos=(0, 0)):
+    def __init__(self, pos=Vector(0, 0)):
         self.head = Head.Head(pos)
         self.body = []
         self.grow_pending = False
