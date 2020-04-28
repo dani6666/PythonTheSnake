@@ -3,5 +3,5 @@ class Vector:
         self.x = x
         self.y = y
 
-    def equals(self, vector):
-        return self.x == vector.x and self.y == vector.y
+    def __eq__(self, other):
+        return self.x == other.x and self.y == other.y

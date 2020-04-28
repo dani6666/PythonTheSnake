@@ -30,11 +30,11 @@ class RenderingManager:
                 self.window.blit(self.body_sprite, (bp.get_pos().x * 40, bp.get_pos().y * 40))
 
         sprite_position = (game_state.snake.head.get_pos().x * 40, game_state.snake.head.get_pos().y * 40)
-        if game_state.moving_direction.equals(Vector(0, -1)):
+        if game_state.moving_direction == Vector(0, -1):
             self.window.blit(pygame.transform.rotate(self.head_sprite, 90), sprite_position)
-        elif game_state.moving_direction.equals(Vector(-1, 0)):
+        elif game_state.moving_direction == Vector(-1, 0):
             self.window.blit(pygame.transform.rotate(self.head_sprite, 180), sprite_position)
-        elif game_state.moving_direction.equals(Vector(0, 1)):
+        elif game_state.moving_direction == Vector(0, 1):
             self.window.blit(pygame.transform.rotate(self.head_sprite, 270), sprite_position)
         else:
             self.window.blit(self.head_sprite, sprite_position)
