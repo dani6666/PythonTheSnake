@@ -2,7 +2,7 @@ import App
 
 
 def main():
-    app = App.App(480, 480)
+    app = App.App()
     app.start()
 
 
