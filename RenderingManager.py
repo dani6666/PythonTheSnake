@@ -4,19 +4,21 @@ from Vector import Vector
 
 
 class RenderingManager:
+
     def __init__(self, window_width, window_height):
         pygame.init()
         self.window = pygame.display.set_mode((window_width, window_height))
         pygame.display.set_caption("Python the Snake")
         self.grid_size = Vector(window_width // 40, window_height // 40)
 
-        self.renderables = []
+        self.action_frames = []
+        self.converted_sprites = set()
 
     def render(self, game_state):
         self.window.fill((150, 150, 150))
 
-        # for renderable in renderables:
-        #     for rendering_component in renderable.get_rendering_components():
+        # for action_frame in self.action_frames:
+        #     for rendering_component in action_frame.get_rendering_components():
 
         sprite = pygame.image.load("resources/apple.png").convert()
         sprite.set_colorkey((255, 0, 255))
@@ -25,6 +27,8 @@ class RenderingManager:
         for bp in game_state.snake.body:
             if bp.fat:
                 sprite = pygame.image.load("resources/fatbody.png").convert()
+                sprite = sprite.convert()
+                sprite = sprite.convert()
             else:
                 sprite = pygame.image.load("resources/body.png").convert()
             sprite.set_colorkey((255, 0, 255))
