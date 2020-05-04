@@ -10,8 +10,13 @@ class RenderingManager:
         pygame.display.set_caption("Python the Snake")
         self.grid_size = Vector(window_width // 40, window_height // 40)
 
-    def render_board(self, game_state):
+        self.renderables = []
+
+    def render(self, game_state):
         self.window.fill((150, 150, 150))
+
+        # for renderable in renderables:
+        #     for rendering_component in renderable.get_rendering_components():
 
         sprite = pygame.image.load("resources/apple.png").convert()
         sprite.set_colorkey((255, 0, 255))

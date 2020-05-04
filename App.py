@@ -1,8 +1,3 @@
-import pygame
-import Util
-import Snake
-import random
-
 from GameClock import GameClock
 from GameManager import GameManager
 from PlayerInputProvider import PlayerInputProvider

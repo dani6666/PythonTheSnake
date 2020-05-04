@@ -17,4 +17,4 @@ class GameClock:
             input = self.input_provider.retrieve_input(self.game_manager.get_current_game_state())
             self.game_manager.simulate_move(input)
             self.game_state = self.game_manager.get_current_game_state()
-            self.rendering_manager.render_board(self.game_state)
+            self.rendering_manager.render(self.game_state)

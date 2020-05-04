@@ -4,6 +4,7 @@ import Util
 from GameState import GameState
 from Snake import Snake
 from Vector import Vector
+from Apple import Apple
 
 
 class GameManager:
@@ -17,7 +18,8 @@ class GameManager:
         while apple_pos.equals(snake_pos):
             apple_pos = Vector(random.randrange(grid_size.x), random.randrange(grid_size.y))
 
-        self.apple_pos = apple_pos
+        self.apple = Apple(apple_pos)
+        self.running = True
 
     def simulate_move(self, input):
         if input is not None and not Util.is_opposite(self.moving_direction, input):
@@ -37,20 +39,20 @@ class GameManager:
             self.snake.head.change_pos(Vector(snake_head_pos.x, 0))
 
         # eating apple
-        if snake_head_pos.equals(self.apple_pos):
+        if snake_head_pos.equals(self.apple.get_pos()):
             self.snake.grow_pending = True
 
             # todo: delete when having implemented score system as actual size updates after some frames
             if self.snake.get_size() == self.grid_size.x * self.grid_size.y - 1:
                 self.running = False
 
-            while self.apple_pos in self.snake.get_slots_occupied_by_body() or \
-                    self.apple_pos.equals(self.snake.head.get_pos()):
-                self.apple_pos = Vector(random.randrange(self.grid_size.x), random.randrange(self.grid_size.y))
+            while self.apple.get_pos() in self.snake.get_slots_occupied_by_body() or \
+                    self.apple.get_pos().equals(self.snake.head.get_pos()):
+                self.apple.change_pos(Vector(random.randrange(self.grid_size.x), random.randrange(self.grid_size.y)))
 
         # checking self collision
         if self.snake.check_collision():
             self.running = False
 
     def get_current_game_state(self):
-        return GameState(self.grid_size, self.apple_pos, self.snake, self.moving_direction)
+        return GameState(self.grid_size, self.apple.get_pos(), self.snake, self.moving_direction)

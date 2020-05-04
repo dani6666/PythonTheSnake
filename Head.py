@@ -1,8 +1,12 @@
-import BodyPiece
+from BodyPiece import BodyPiece
 from Vector import Vector
+import pygame
 
 
-class Head(BodyPiece.BodyPiece):
+class Head(BodyPiece):
+
+    # sprite = pygame.image.load("resources/head.png").convert()
+    # sprite.set_colorkey((255, 0, 255))
 
     def move(self, moving_direction=Vector(0, 0)):
         previous_pos = Vector(self.position.x, self.position.y)

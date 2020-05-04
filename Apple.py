@@ -2,12 +2,10 @@ from Vector import Vector
 import pygame
 
 
-class BodyPiece:
+class Apple:
 
-    # sprite = pygame.image.load("resources/body.png").convert()
-    # fat_sprite = pygame.image.load("resources/fatbody.png").convert()
+    # sprite = pygame.image.load("resources/apple.png").convert()
     # sprite.set_colorkey((255, 0, 255))
-    # fat_sprite.set_colorkey((255, 0, 255))
 
     def __init__(self, position=Vector(0, 0)):
         self.position = position
