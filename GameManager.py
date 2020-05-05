@@ -17,7 +17,7 @@ class GameManager:
         snake_pos = Vector(random.randrange(grid_size.x), random.randrange(grid_size.y))
         self.snake = Snake(snake_pos)
         apple_pos = Vector(random.randrange(grid_size.x), random.randrange(grid_size.y))
-        while apple_pos.equals(snake_pos):
+        while apple_pos == snake_pos:
             apple_pos = Vector(random.randrange(grid_size.x), random.randrange(grid_size.y))
 
         self.apple = Apple(apple_pos)
@@ -41,7 +41,7 @@ class GameManager:
             self.snake.head.change_pos(Vector(snake_head_pos.x, 0))
 
         # eating apple
-        if self.snake.head.get_pos().equals(self.apple.get_pos()):
+        if self.snake.head.get_pos() == self.apple.get_pos():
             self.snake.grow_pending = True
 
             # todo: delete when having implemented score system as actual size updates after some frames
@@ -50,7 +50,7 @@ class GameManager:
 
             potential_apple_pos = Vector(random.randrange(self.grid_size.x), random.randrange(self.grid_size.y))
             slots_occupied_by_snake = self.snake.get_slots_occupied_by_body() + [self.snake.head.get_pos()]
-            while potential_apple_pos.in_vector_list(slots_occupied_by_snake):
+            while potential_apple_pos in slots_occupied_by_snake:
                 potential_apple_pos = Vector(random.randrange(self.grid_size.x), random.randrange(self.grid_size.y))
             self.apple.change_pos(potential_apple_pos)
 

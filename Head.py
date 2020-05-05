@@ -19,11 +19,11 @@ class Head:
         return self.position
 
     def move_direction_to_rotation(self, move_direction):
-        if move_direction.equals(Vector(0, -1)):
+        if move_direction == Vector(0, -1):
             self.rotation = 90
-        elif move_direction.equals(Vector(-1, 0)):
+        elif move_direction == Vector(-1, 0):
             self.rotation = 180
-        elif move_direction.equals(Vector(0, 1)):
+        elif move_direction == Vector(0, 1):
             self.rotation = 270
         else:
             self.rotation = 0
@@ -33,9 +33,6 @@ class Head:
         self.position.x += moving_direction.x
         self.position.y += moving_direction.y
         return previous_pos
-
-    def does_collide(self, another_body_piece):
-        return self.position.equals(another_body_piece.pos)
 
     @staticmethod
     def convert_sprites():

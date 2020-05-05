@@ -36,7 +36,7 @@ class Snake:
         return [bp.get_pos() for bp in self.body]
 
     def check_collision(self):
-        if self.head.get_pos() in [bp.get_pos() for bp in self.body]:
+        if self.head.get_pos() in self.get_slots_occupied_by_body():
             return True
         else:
             return False
