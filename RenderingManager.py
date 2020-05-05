@@ -4,7 +4,6 @@ import pygame
 class RenderingManager:
 
     def __init__(self):
-        pygame.init()
         self.action_frames = []
         self.converted_sprites = set()
 
@@ -29,7 +28,6 @@ class RenderingManager:
                 self.converted_sprites.add(sprite)
 
     def render(self):
-
         for action_frame in self.action_frames:
             action_frame.window.fill(action_frame.bg_color)
             for rendering_component in action_frame.get_rendering_components():
@@ -38,5 +36,4 @@ class RenderingManager:
                         pygame.transform.rotate(rendering_component.sprite, rendering_component.rotation)
                 rendering_component.sprite.set_colorkey((255, 0, 255))
                 action_frame.window.blit(rendering_component.sprite, rendering_component.position.to_tup())
-
         pygame.display.update()
