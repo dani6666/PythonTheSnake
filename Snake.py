@@ -46,7 +46,7 @@ class Snake:
 
     @staticmethod
     def get_sprites():
-        return Head.get_sprites() + BodyPiece.get_sprites()
+        return BodyPiece.get_sprites() + Head.get_sprites()
 
     def get_rendering_components(self):
-        return [self.head.get_rendering_components(), *[bp.get_rendering_components for bp in self.body]]
+        return [self.head.get_rendering_components(), *[bp.get_rendering_components() for bp in self.body]]

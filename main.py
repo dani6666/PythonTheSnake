@@ -1,8 +1,8 @@
-import App
+from App import App
 
 
 def main():
-    app = App.App()
+    app = App()
     app.start()
 
 

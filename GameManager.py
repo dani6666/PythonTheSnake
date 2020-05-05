@@ -5,9 +5,11 @@ from GameState import GameState
 from Snake import Snake
 from Vector import Vector
 from Apple import Apple
+from ActionFrame import ActionFrame
 
 
 class GameManager:
+
     def __init__(self, grid_size):
         self.grid_size = grid_size
         self.moving_direction = Vector(1, 0)
@@ -56,3 +58,6 @@ class GameManager:
 
     def get_current_game_state(self):
         return GameState(self.grid_size, self.apple.get_pos(), self.snake, self.moving_direction)
+
+    def get_action_frame(self):
+        return ActionFrame([Apple, Snake], None, (40, 40), [self.apple, self.snake])

@@ -1,47 +1,42 @@
 import pygame
 
-from Vector import Vector
-
 
 class RenderingManager:
 
-    def __init__(self, window_width, window_height):
+    def __init__(self):
         pygame.init()
-        self.window = pygame.display.set_mode((window_width, window_height))
-        pygame.display.set_caption("Python the Snake")
-        self.grid_size = Vector(window_width // 40, window_height // 40)
-
         self.action_frames = []
         self.converted_sprites = set()
 
-    def render(self, game_state):
-        self.window.fill((150, 150, 150))
+    def add_action_frame(self, action_frame):
+        self.action_frames.append(action_frame)
+        self.append_converted_sprites(action_frame.get_sprites())
 
-        # for action_frame in self.action_frames:
-        #     for rendering_component in action_frame.get_rendering_components():
+    def remove_action_frame(self, action_frame):
+        self.action_frames.remove(action_frame)
 
-        sprite = pygame.image.load("resources/apple.png").convert()
-        sprite.set_colorkey((255, 0, 255))
-        self.window.blit(sprite, (game_state.apple_position.x * 40, game_state.apple_position.y * 40))
+    def set_action_frames(self, action_frames):
+        self.action_frames = action_frames
 
-        for bp in game_state.snake.body:
-            if bp.fat:
-                sprite = pygame.image.load("resources/fatbody.png").convert()
+    def reset_action_frames(self):
+        self.action_frames = []
+
+    def append_converted_sprites(self, sprites):
+        for sprite in sprites:
+            if sprite not in self.converted_sprites:
                 sprite = sprite.convert()
-                sprite = sprite.convert()
-            else:
-                sprite = pygame.image.load("resources/body.png").convert()
-            sprite.set_colorkey((255, 0, 255))
-            self.window.blit(sprite, (bp.get_pos().x * 40, bp.get_pos().y * 40))
+                sprite.set_colorkey((255, 0, 255))
+                self.converted_sprites.add(sprite)
 
-        sprite = pygame.image.load("resources/head.png").convert()
-        sprite.set_colorkey((255, 0, 255))
-        if game_state.moving_direction.equals(Vector(0, -1)):
-            sprite = pygame.transform.rotate(sprite, 90)
-        elif game_state.moving_direction.equals(Vector(-1, 0)):
-            sprite = pygame.transform.rotate(sprite, 180)
-        elif game_state.moving_direction.equals(Vector(0, 1)):
-            sprite = pygame.transform.rotate(sprite, 270)
-        self.window.blit(sprite, (game_state.snake.head.get_pos().x * 40, game_state.snake.head.get_pos().y * 40))
+    def render(self):
+
+        for action_frame in self.action_frames:
+            action_frame.window.fill(action_frame.bg_color)
+            for rendering_component in action_frame.get_rendering_components():
+                if rendering_component.rotation:
+                    rendering_component.sprite = \
+                        pygame.transform.rotate(rendering_component.sprite, rendering_component.rotation)
+                rendering_component.sprite.set_colorkey((255, 0, 255))
+                action_frame.window.blit(rendering_component.sprite, rendering_component.position.to_tup())
 
         pygame.display.update()

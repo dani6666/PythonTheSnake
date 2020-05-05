@@ -1,12 +1,12 @@
 from Vector import Vector
 from RenderPacket import RenderPacket
 import pygame
+import copy
 
 
 class Head:
 
     sprite = pygame.image.load("resources/head.png")
-    sprite.set_colorkey((255, 0, 255))
 
     def __init__(self, position=Vector(0, 0), rotation=0):
         self.position = position
@@ -25,6 +25,8 @@ class Head:
             self.rotation = 180
         elif move_direction.equals(Vector(0, 1)):
             self.rotation = 270
+        else:
+            self.rotation = 0
 
     def move(self, moving_direction=Vector(0, 0)):
         previous_pos = Vector(self.position.x, self.position.y)
@@ -40,4 +42,4 @@ class Head:
         return [Head.sprite]
 
     def get_rendering_components(self):
-        return RenderPacket(Head.sprite, self.position, self.rotation)
+        return RenderPacket(Head.sprite, copy.deepcopy(self.position), self.rotation)

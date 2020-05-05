@@ -5,3 +5,6 @@ class Vector:
 
     def equals(self, vector):
         return self.x == vector.x and self.y == vector.y
+
+    def to_tup(self):
+        return self.x, self.y
