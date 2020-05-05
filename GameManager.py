@@ -41,7 +41,7 @@ class GameManager:
             self.snake.head.change_pos(Vector(snake_head_pos.x, 0))
 
         # eating apple
-        if snake_head_pos.equals(self.apple.get_pos()):
+        if self.snake.head.get_pos().equals(self.apple.get_pos()):
             self.snake.grow_pending = True
 
             # todo: delete when having implemented score system as actual size updates after some frames
