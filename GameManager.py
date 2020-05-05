@@ -48,9 +48,11 @@ class GameManager:
             if self.snake.get_size() == self.grid_size.x * self.grid_size.y - 1:
                 self.running = False
 
-            while self.apple.get_pos() in self.snake.get_slots_occupied_by_body() or \
-                    self.apple.get_pos().equals(self.snake.head.get_pos()):
-                self.apple.change_pos(Vector(random.randrange(self.grid_size.x), random.randrange(self.grid_size.y)))
+            potential_apple_pos = Vector(random.randrange(self.grid_size.x), random.randrange(self.grid_size.y))
+            slots_occupied_by_snake = self.snake.get_slots_occupied_by_body() + [self.snake.head.get_pos()]
+            while potential_apple_pos.in_vector_list(slots_occupied_by_snake):
+                potential_apple_pos = Vector(random.randrange(self.grid_size.x), random.randrange(self.grid_size.y))
+            self.apple.change_pos(potential_apple_pos)
 
         # checking self collision
         if self.snake.check_collision():

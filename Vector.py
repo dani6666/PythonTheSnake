@@ -8,3 +8,9 @@ class Vector:
 
     def to_tup(self):
         return self.x, self.y
+
+    def in_vector_list(self, v_list):
+        for v in v_list:
+            if self.equals(v):
+                return True
+        return False
