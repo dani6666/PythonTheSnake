@@ -26,8 +26,5 @@ class ActionFrame:
         pos.y *= self.grid_size[1]
         return rendering_component
 
-    def get_sprites(self):
-        return [ps for psp in self.possible_sprites_providers for ps in psp.get_sprites()]
-
     def get_rendering_components(self):
         return [self.apply_absolute_cords(rc) for c in self.components for rc in c.get_rendering_components()]

@@ -18,8 +18,9 @@ class Apple:
         return self.position
 
     @staticmethod
-    def get_sprites():
-        return [Apple.sprite]
+    def convert_sprites():
+        Apple.sprite = Apple.sprite.convert()
+        Apple.sprite.set_colorkey((255, 0, 255))
 
     def get_rendering_components(self):
         return [RenderPacket(Apple.sprite, copy.deepcopy(self.position))]

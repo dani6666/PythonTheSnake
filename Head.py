@@ -38,8 +38,9 @@ class Head:
         return self.position.equals(another_body_piece.pos)
 
     @staticmethod
-    def get_sprites():
-        return [Head.sprite]
+    def convert_sprites():
+        Head.sprite = Head.sprite.convert()
+        Head.sprite.set_colorkey((255, 0, 255))
 
     def get_rendering_components(self):
         return RenderPacket(Head.sprite, copy.deepcopy(self.position), self.rotation)

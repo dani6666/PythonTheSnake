@@ -20,8 +20,11 @@ class BodyPiece:
         return self.position
 
     @staticmethod
-    def get_sprites():
-        return [BodyPiece.sprite, BodyPiece.fat_sprite]
+    def convert_sprites():
+        BodyPiece.fat_sprite = BodyPiece.fat_sprite.convert()
+        BodyPiece.sprite = BodyPiece.sprite.convert()
+        BodyPiece.fat_sprite.set_colorkey((255, 0, 255))
+        BodyPiece.sprite.set_colorkey((255, 0, 255))
 
     def get_rendering_components(self):
         if self.fat:

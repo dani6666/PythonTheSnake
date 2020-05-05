@@ -5,11 +5,11 @@ class RenderingManager:
 
     def __init__(self):
         self.action_frames = []
-        self.converted_sprites = set()
+        self.converted_sprite_classes = set()
 
     def add_action_frame(self, action_frame):
         self.action_frames.append(action_frame)
-        self.append_converted_sprites(action_frame.get_sprites())
+        self.append_converted_sprite_classes(action_frame.possible_sprites_providers)
 
     def remove_action_frame(self, action_frame):
         self.action_frames.remove(action_frame)
@@ -20,12 +20,11 @@ class RenderingManager:
     def reset_action_frames(self):
         self.action_frames = []
 
-    def append_converted_sprites(self, sprites):
-        for sprite in sprites:
-            if sprite not in self.converted_sprites:
-                sprite = sprite.convert()
-                sprite.set_colorkey((255, 0, 255))
-                self.converted_sprites.add(sprite)
+    def append_converted_sprite_classes(self, classes):
+        for c in classes:
+            if c not in self.converted_sprite_classes:
+                c.convert_sprites()
+                self.converted_sprite_classes.add(c)
 
     def render(self):
         for action_frame in self.action_frames:
