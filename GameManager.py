@@ -2,7 +2,7 @@ import random
 
 import Util
 from GameState import GameState
-from Snake import Snake
+from Snake.Snake import Snake
 from Vector import Vector
 from Apple import Apple
 from ActionFrame import ActionFrame

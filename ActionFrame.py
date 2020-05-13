@@ -6,7 +6,7 @@ class ActionFrame:
 
     def __init__(self, possible_sprites_providers, window, grid_size, components=[], bg_color=(150, 150, 150)):
         self.possible_sprites_providers = possible_sprites_providers
-        if not window:
+        if window is None:
             window = pygame.display.set_mode((40 * 12, 40 * 12))
             pygame.display.set_caption("Python the Snake")
         self.window = window
