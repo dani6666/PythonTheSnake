@@ -1,6 +1,6 @@
 import pygame
 
-from Vector import Vector
+from Model.Vector import Vector
 
 
 class PlayerInputProvider:

@@ -1,11 +1,11 @@
 import random
 
 import Util
-from GameState import GameState
-from Snake.Snake import Snake
-from Vector import Vector
-from Apple import Apple
-from ActionFrame import ActionFrame
+from Model.GameState import GameState
+from GameObjects.Snake import Snake
+from Model.Vector import Vector
+from GameObjects.Apple import Apple
+from Rendering.ActionFrame import ActionFrame
 
 
 class GameManager:
@@ -62,4 +62,4 @@ class GameManager:
         return GameState(self.grid_size, self.apple.get_pos(), self.snake, self.moving_direction)
 
     def get_action_frame(self):
-        return ActionFrame([Apple, Snake], None, (40, 40), [self.apple, self.snake])
+        return ActionFrame([Apple, Snake], Vector(12, 12), Vector(40, 40), [self.apple, self.snake])

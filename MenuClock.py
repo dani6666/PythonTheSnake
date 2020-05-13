@@ -1,7 +1,5 @@
 import pygame
 
-from RenderingManager import RenderingManager
-
 
 class MenuClock:
     def __init__(self, input_provider, main_menu_window, rendering_manager, game_initializer):

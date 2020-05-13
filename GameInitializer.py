@@ -1,8 +1,8 @@
 from GameClock import GameClock
 from GameManager import GameManager
-from PlayerInputProvider import PlayerInputProvider
-from RenderingManager import RenderingManager
-from Vector import Vector
+from InputProviders.PlayerInputProvider import PlayerInputProvider
+from Rendering.RenderingManager import RenderingManager
+from Model.Vector import Vector
 
 
 class GameInitializer:

@@ -9,3 +9,6 @@ class Vector:
 
     def to_tup(self):
         return self.x, self.y
+
+    def divide(self, divide_vector):
+        return Vector(self.x // divide_vector.x, self.y // divide_vector.y)

@@ -1,8 +1,8 @@
-from Snake.BodyPiece import BodyPiece
-from Snake.Head import Head
+from GameObjects.BodyPiece import BodyPiece
+from GameObjects.Head import Head
 import copy
 
-from Vector import Vector
+from Model.Vector import Vector
 
 
 class Snake:
@@ -50,4 +50,4 @@ class Snake:
         Head.convert_sprites()
 
     def get_rendering_components(self):
-        return [self.head.get_rendering_components(), *[bp.get_rendering_components() for bp in self.body]]
+        return [self.head.get_rendering_components()] + [bp.get_rendering_components() for bp in self.body]

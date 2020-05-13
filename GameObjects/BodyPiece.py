@@ -1,5 +1,5 @@
-from Vector import Vector
-from RenderPacket import RenderPacket
+from Model.Vector import Vector
+from Rendering.RenderPacket import RenderPacket
 import pygame
 import copy
 

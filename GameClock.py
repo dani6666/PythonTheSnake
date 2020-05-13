@@ -1,7 +1,5 @@
 import pygame
 
-from RenderingManager import RenderingManager
-
 
 class GameClock:
     def __init__(self, input_provider, game_manager, rendering_manager):
