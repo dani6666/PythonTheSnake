@@ -5,5 +5,5 @@ class Button:
         self.position = position
 
     def contains_posision(self, position):
-        return position.x>self.position.x and position.x<self.position.x+self.size.x and \
-         position.y > self.position.y and position.y < self.position.y + self.size.y
+        return self.position.x < position.x < self.position.x + self.size.x and \
+               self.position.y < position.y < self.position.y + self.size.y

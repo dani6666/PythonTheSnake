@@ -11,5 +11,4 @@ class PlayerInputProvider:
                 mouse_position = pygame.mouse.get_pos()
                 return Vector(mouse_position[0], mouse_position[1])
             elif event.type == pygame.QUIT:
-                self.running = False
                 pygame.quit()
