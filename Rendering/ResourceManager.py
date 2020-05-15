@@ -13,7 +13,8 @@ class ResourceManager:
     digits = list()
     for i in range(10):
         digits.append(pygame.image.load("resources/" + str(i) + ".png"))
-    score_bar = None
+    colon = pygame.image.load("resources/colon.png")
+    info_bar = None
 
     @staticmethod
     def initialize_font():
@@ -35,10 +36,12 @@ class ResourceManager:
         for i in range(10):
             ResourceManager.digits[i] = ResourceManager.digits[i].convert()
             ResourceManager.digits[i].set_colorkey((255, 0, 255))
+        ResourceManager.colon = ResourceManager.colon.convert()
+        ResourceManager.colon.set_colorkey((255, 0, 255))
 
     @staticmethod
     def initialize_score_bar(width):
-        ResourceManager.score_bar = pygame.Surface((width, 40))
-        ResourceManager.score_bar.fill((50, 50, 50))
-        ResourceManager.score_bar = ResourceManager.score_bar.convert()
+        ResourceManager.info_bar = pygame.Surface((width, 40))
+        ResourceManager.info_bar.fill((0, 0, 0))
+        ResourceManager.info_bar = ResourceManager.info_bar.convert()
 

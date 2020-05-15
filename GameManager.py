@@ -6,7 +6,9 @@ from GameObjects.Snake import Snake
 from Model.Vector import Vector
 from GameObjects.Apple import Apple
 from Rendering.ActionFrame import ActionFrame
-from ScoreTracker.ScoreTracker import ScoreTracker
+from InfoTracker.ScoreTracker import ScoreTracker
+from InfoTracker.TimeTracker import TimeTracker
+from InfoTracker.InfoTracker import InfoTracker
 
 
 class GameManager:
@@ -21,7 +23,10 @@ class GameManager:
         while apple_pos == snake_pos:
             apple_pos = Vector(random.randrange(grid_size.x), random.randrange(grid_size.y))
         self.apple = Apple(apple_pos)
-        self.score_tracker = ScoreTracker(Vector(0, 0), grid_size.x)
+
+        score_tracker = ScoreTracker(Vector(0, 0), grid_size.x)
+        time_tracker = TimeTracker(Vector(0, 0))
+        self.info_tracker = InfoTracker(Vector(0, 0), score_tracker, time_tracker)
 
         self.running = True
 
@@ -46,8 +51,8 @@ class GameManager:
         if self.snake.head.get_pos() == self.apple.get_pos():
             self.snake.grow_pending = True
 
-            self.score_tracker.append_score()
-            if self.score_tracker.score == self.grid_size.x * self.grid_size.y - 1:
+            self.info_tracker.increment_score()
+            if self.info_tracker.score == self.grid_size.x * self.grid_size.y - 1:
                 self.running = False
 
             potential_apple_pos = Vector(random.randrange(self.grid_size.x), random.randrange(self.grid_size.y))
@@ -60,8 +65,10 @@ class GameManager:
         if self.snake.check_collision():
             self.running = False
 
+        self.info_tracker.update_time()
+
     def get_current_game_state(self):
         return GameState(self.grid_size, self.apple.get_pos(), self.snake, self.moving_direction)
 
     def get_action_frame(self):
-        return ActionFrame(Vector(12, 12 + 1), Vector(40, 40), [self.apple, self.snake, self.score_tracker])
+        return ActionFrame(Vector(12, 12 + 1), Vector(40, 40), [self.apple, self.snake, self.info_tracker])

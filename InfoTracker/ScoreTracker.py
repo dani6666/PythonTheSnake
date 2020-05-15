@@ -1,8 +1,7 @@
-from ScoreTracker.DigitDisplay import DigitDisplay
-from Model.Vector import Vector
+from InfoTracker.DigitDisplay import DigitDisplay
 from Rendering.RenderPacket import RenderPacket
-
 from Rendering.ResourceManager import ResourceManager
+from Model.Vector import Vector
 
 
 class ScoreTracker:
@@ -19,13 +18,16 @@ class ScoreTracker:
         self.displays[0].next_display = self.displays[1]
         self.displays[1].next_display = self.displays[2]
 
-    def append_score(self):
+    def increment_score(self):
         self.score += 1
-        self.displays[0].append_value()
+        self.displays[0].increment_value()
+
+    def reset(self):
+        self.score = 0
+        self.displays[0].reset()
 
     def get_rendering_components(self):
         return \
-            [RenderPacket(ResourceManager.score_bar, self.position)] + \
             self.displays[0].get_rendering_components() + \
             self.displays[1].get_rendering_components() + \
             self.displays[2].get_rendering_components()
