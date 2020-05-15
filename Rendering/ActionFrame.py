@@ -1,16 +1,13 @@
-from RenderPacket import RenderPacket
 import pygame
 
 
 class ActionFrame:
 
-    def __init__(self, possible_sprites_providers, window, grid_size, components=[], bg_color=(150, 150, 150)):
-        self.possible_sprites_providers = possible_sprites_providers
-        if not window:
-            window = pygame.display.set_mode((40 * 12, 40 * 12))
-            pygame.display.set_caption("Python the Snake")
-        self.window = window
+    def __init__(self, grid_size, node_size, components=[], bg_color=(150, 150, 150)):
+        pygame.display.set_caption("Python the GameObjects")
+        self.window = pygame.display.set_mode((grid_size.x * node_size.x, grid_size.y * node_size.y))
         self.grid_size = grid_size
+        self.node_size = node_size
         self.components = components
         self.bg_color = bg_color
 
@@ -22,8 +19,8 @@ class ActionFrame:
 
     def apply_absolute_cords(self, rendering_component):
         pos = rendering_component.position
-        pos.x *= self.grid_size[0]
-        pos.y *= self.grid_size[1]
+        pos.x *= self.node_size.x
+        pos.y *= self.node_size.y
         return rendering_component
 
     def get_rendering_components(self):

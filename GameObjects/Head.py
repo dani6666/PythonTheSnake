@@ -1,12 +1,11 @@
-from Vector import Vector
-from RenderPacket import RenderPacket
-import pygame
+from Model.Vector import Vector
+from Rendering.RenderPacket import RenderPacket
 import copy
+
+from Rendering.ResourceManager import ResourceManager
 
 
 class Head:
-
-    sprite = pygame.image.load("resources/head.png")
 
     def __init__(self, position=Vector(0, 0), rotation=0):
         self.position = position
@@ -19,11 +18,11 @@ class Head:
         return self.position
 
     def move_direction_to_rotation(self, move_direction):
-        if move_direction == Vector(0, -1):
+        if move_direction.y == -1:
             self.rotation = 90
-        elif move_direction == Vector(-1, 0):
+        elif move_direction.x == -1:
             self.rotation = 180
-        elif move_direction == Vector(0, 1):
+        elif move_direction.y == 1:
             self.rotation = 270
         else:
             self.rotation = 0
@@ -34,10 +33,5 @@ class Head:
         self.position.y += moving_direction.y
         return previous_pos
 
-    @staticmethod
-    def convert_sprites():
-        Head.sprite = Head.sprite.convert()
-        Head.sprite.set_colorkey((255, 0, 255))
-
     def get_rendering_components(self):
-        return RenderPacket(Head.sprite, copy.deepcopy(self.position), self.rotation)
+        return RenderPacket(ResourceManager.snake_head, copy.deepcopy(self.position), self.rotation)

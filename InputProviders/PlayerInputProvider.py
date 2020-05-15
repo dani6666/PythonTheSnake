@@ -1,6 +1,6 @@
 import pygame
 
-from Vector import Vector
+from Model.Vector import Vector
 
 
 class PlayerInputProvider:
@@ -16,5 +16,6 @@ class PlayerInputProvider:
                     return Vector(0, -1)
                 elif event.key == pygame.K_DOWN:
                     return Vector(0, 1)
-            # elif event.type == pygame.QUIT:
-            #     self.running = False
+            elif event.type == pygame.QUIT:
+                self.running = False
+                pygame.quit()
