@@ -3,8 +3,7 @@ import pygame
 
 class ActionFrame:
 
-    def __init__(self, possible_sprites_providers, grid_size, node_size, components=[], bg_color=(150, 150, 150)):
-        self.possible_sprites_providers = possible_sprites_providers
+    def __init__(self, grid_size, node_size, components=[], bg_color=(150, 150, 150)):
         pygame.display.set_caption("Python the GameObjects")
         self.window = pygame.display.set_mode((grid_size.x * node_size.x, grid_size.y * node_size.y))
         self.grid_size = grid_size

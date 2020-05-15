@@ -2,32 +2,27 @@ import pygame
 
 
 class RenderingManager:
+    action_frames = []
 
-    def __init__(self):
-        self.action_frames = []
-        self.converted_sprite_classes = set()
+    @staticmethod
+    def add_action_frame(action_frame):
+        RenderingManager.action_frames.append(action_frame)
 
-    def add_action_frame(self, action_frame):
-        self.action_frames.append(action_frame)
-        self.append_converted_sprite_classes(action_frame.possible_sprites_providers)
+    @staticmethod
+    def remove_action_frame(action_frame):
+        RenderingManager.action_frames.remove(action_frame)
 
-    def remove_action_frame(self, action_frame):
-        self.action_frames.remove(action_frame)
+    @staticmethod
+    def set_action_frames(action_frames):
+        RenderingManager.action_frames = action_frames
 
-    def set_action_frames(self, action_frames):
-        self.action_frames = action_frames
+    @staticmethod
+    def reset_action_frames():
+        RenderingManager.action_frames = []
 
-    def reset_action_frames(self):
-        self.action_frames = []
-
-    def append_converted_sprite_classes(self, classes):
-        for c in classes:
-            if c not in self.converted_sprite_classes:
-                c.convert_sprites()
-                self.converted_sprite_classes.add(c)
-
-    def render(self):
-        for action_frame in self.action_frames:
+    @staticmethod
+    def render():
+        for action_frame in RenderingManager.action_frames:
             action_frame.window.fill(action_frame.bg_color)
             for rendering_component in action_frame.get_rendering_components():
                 if rendering_component.rotation:

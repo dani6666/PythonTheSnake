@@ -44,10 +44,5 @@ class Snake:
     def get_size(self):
         return len(self.body) + 1
 
-    @staticmethod
-    def convert_sprites():
-        BodyPiece.convert_sprites()
-        Head.convert_sprites()
-
     def get_rendering_components(self):
         return [self.head.get_rendering_components()] + [bp.get_rendering_components() for bp in self.body]

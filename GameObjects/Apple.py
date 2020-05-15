@@ -1,12 +1,11 @@
 from Model.Vector import Vector
 from Rendering.RenderPacket import RenderPacket
-import pygame
 import copy
+
+from Rendering.ResourceManager import ResourceManager
 
 
 class Apple:
-
-    sprite = pygame.image.load("resources/apple.png")
 
     def __init__(self, position=Vector(0, 0)):
         self.position = position
@@ -17,10 +16,5 @@ class Apple:
     def get_pos(self):
         return self.position
 
-    @staticmethod
-    def convert_sprites():
-        Apple.sprite = Apple.sprite.convert()
-        Apple.sprite.set_colorkey((255, 0, 255))
-
     def get_rendering_components(self):
-        return [RenderPacket(Apple.sprite, copy.deepcopy(self.position))]
+        return [RenderPacket(ResourceManager.apple, copy.deepcopy(self.position))]
