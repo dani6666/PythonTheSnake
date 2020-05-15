@@ -2,23 +2,17 @@ import pygame
 
 
 class ResourceManager:
+
     snake_head = pygame.image.load("resources/head.png")
     snake_body = pygame.image.load("resources/body.png")
     snake_fat_body = pygame.image.load("resources/fatbody.png")
     apple = pygame.image.load("resources/apple.png")
+    button_inactive = pygame.image.load("resources/button_inactive.png")
     text_font = None
 
     digits = list()
-    digits.append(pygame.image.load("resources/0.png"))
-    digits.append(pygame.image.load("resources/1.png"))
-    digits.append(pygame.image.load("resources/2.png"))
-    digits.append(pygame.image.load("resources/3.png"))
-    digits.append(pygame.image.load("resources/4.png"))
-    digits.append(pygame.image.load("resources/5.png"))
-    digits.append(pygame.image.load("resources/6.png"))
-    digits.append(pygame.image.load("resources/7.png"))
-    digits.append(pygame.image.load("resources/8.png"))
-    digits.append(pygame.image.load("resources/9.png"))
+    for i in range(10):
+        digits.append(pygame.image.load("resources/" + str(i) + ".png"))
     score_bar = None
 
     @staticmethod
@@ -35,6 +29,8 @@ class ResourceManager:
         ResourceManager.snake_fat_body.set_colorkey((255, 0, 255))
         ResourceManager.apple = ResourceManager.apple.convert()
         ResourceManager.apple.set_colorkey((255, 0, 255))
+        ResourceManager.button_inactive = ResourceManager.button_inactive.convert()
+        ResourceManager.button_inactive.set_colorkey((255, 0, 255))
 
         for i in range(10):
             ResourceManager.digits[i] = ResourceManager.digits[i].convert()
