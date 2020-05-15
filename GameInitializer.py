@@ -3,6 +3,7 @@ from GameManager import GameManager
 from InputProviders.PlayerInputProvider import PlayerInputProvider
 from Rendering.RenderingManager import RenderingManager
 from Model.Vector import Vector
+from Rendering.ResourceManager import ResourceManager
 
 
 class GameInitializer:
@@ -11,6 +12,7 @@ class GameInitializer:
         input_provider = PlayerInputProvider()
         game_manager = GameManager(Vector(12, 12))
         RenderingManager.add_action_frame(game_manager.get_action_frame())
+        ResourceManager.initialize_score_bar(12 * 40)
         clock = GameClock(input_provider, game_manager)
 
         clock.start_game()

@@ -6,6 +6,7 @@ from GameObjects.Snake import Snake
 from Model.Vector import Vector
 from GameObjects.Apple import Apple
 from Rendering.ActionFrame import ActionFrame
+from ScoreTracker.ScoreTracker import ScoreTracker
 
 
 class GameManager:
@@ -19,8 +20,9 @@ class GameManager:
         apple_pos = Vector(random.randrange(grid_size.x), random.randrange(grid_size.y))
         while apple_pos == snake_pos:
             apple_pos = Vector(random.randrange(grid_size.x), random.randrange(grid_size.y))
-
         self.apple = Apple(apple_pos)
+        self.score_tracker = ScoreTracker(Vector(0, 0), grid_size.x)
+
         self.running = True
 
     def simulate_move(self, input):
@@ -44,8 +46,8 @@ class GameManager:
         if self.snake.head.get_pos() == self.apple.get_pos():
             self.snake.grow_pending = True
 
-            # todo: delete when having implemented score system as actual size updates after some frames
-            if self.snake.get_size() == self.grid_size.x * self.grid_size.y - 1:
+            self.score_tracker.append_score()
+            if self.score_tracker.score == self.grid_size.x * self.grid_size.y - 1:
                 self.running = False
 
             potential_apple_pos = Vector(random.randrange(self.grid_size.x), random.randrange(self.grid_size.y))
@@ -62,4 +64,4 @@ class GameManager:
         return GameState(self.grid_size, self.apple.get_pos(), self.snake, self.moving_direction)
 
     def get_action_frame(self):
-        return ActionFrame(Vector(12, 12), Vector(40, 40), [self.apple, self.snake])
+        return ActionFrame(Vector(12, 12 + 1), Vector(40, 40), [self.apple, self.snake, self.score_tracker])

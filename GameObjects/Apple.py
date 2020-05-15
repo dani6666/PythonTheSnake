@@ -1,6 +1,5 @@
 from Model.Vector import Vector
 from Rendering.RenderPacket import RenderPacket
-import copy
 
 from Rendering.ResourceManager import ResourceManager
 
@@ -17,4 +16,4 @@ class Apple:
         return self.position
 
     def get_rendering_components(self):
-        return [RenderPacket(ResourceManager.apple, copy.deepcopy(self.position))]
+        return [RenderPacket(ResourceManager.apple, self.position + Vector(0, 1))]
