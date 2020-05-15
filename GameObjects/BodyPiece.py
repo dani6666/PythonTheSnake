@@ -1,6 +1,5 @@
 from Model.Vector import Vector
 from Rendering.RenderPacket import RenderPacket
-import copy
 
 from Rendering.ResourceManager import ResourceManager
 
@@ -19,6 +18,6 @@ class BodyPiece:
 
     def get_rendering_components(self):
         if self.fat:
-            return RenderPacket(ResourceManager.snake_fat_body, copy.deepcopy(self.position))
+            return RenderPacket(ResourceManager.snake_fat_body, self.position + Vector(0, 1))
         else:
-            return RenderPacket(ResourceManager.snake_body, copy.deepcopy(self.position))
+            return RenderPacket(ResourceManager.snake_body, self.position + Vector(0, 1))

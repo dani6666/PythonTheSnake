@@ -3,6 +3,7 @@ from Rendering.ActionFrame import ActionFrame
 from Menu.Button import Button
 from Model.GameSettings import GameSettings
 from Model.Vector import Vector
+from Rendering.ResourceManager import ResourceManager
 
 
 class MainMenuWindow:
@@ -15,7 +16,7 @@ class MainMenuWindow:
         self.rendering_text = Text(Vector(0, 4), "Rendering")
         self.rendering_enabled_button = Button(Vector(1, 5), Vector(1, 1), True, "Enabled")
         self.rendering_disabled_button = Button(Vector(1, 6), Vector(1, 1), False, "Disabled")
-        self.start_button = Button(Vector(4, 13), Vector(3, 1), False, "Start game")
+        self.start_button = Button(Vector(4, 13), Vector(3, 1), False, "Start game", sprite=ResourceManager.snake_head)
 
     def handle_mouse_click(self, click_position):
         click_position = click_position.divide(self.node_size)

@@ -1,6 +1,5 @@
 from Model.Vector import Vector
 from Rendering.RenderPacket import RenderPacket
-import copy
 
 from Rendering.ResourceManager import ResourceManager
 
@@ -34,4 +33,4 @@ class Head:
         return previous_pos
 
     def get_rendering_components(self):
-        return RenderPacket(ResourceManager.snake_head, copy.deepcopy(self.position), self.rotation)
+        return RenderPacket(ResourceManager.snake_head, self.position + Vector(0, 1), self.rotation)
