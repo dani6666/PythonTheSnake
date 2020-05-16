@@ -6,9 +6,9 @@ from ActionProviders.QuitHandler import QuitHandler
 
 class FrameActionsManager:
 
-    def __init__(self, rendering_enabled, bot_aciton_provider, player_action_provider):
+    def __init__(self, rendering_enabled, bot_action_provider, player_action_provider):
         self.rendering_enabled = rendering_enabled
-        self.bot_action_provider = bot_aciton_provider
+        self.bot_action_provider = bot_action_provider
         self.player_action_provider = player_action_provider
 
     def carry_frame_actions(self, game_state):

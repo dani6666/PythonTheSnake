@@ -1,7 +1,6 @@
 import pygame
 from Rendering.RenderPacket import RenderPacket
 from Model.Vector import Vector
-import copy
 
 
 class Popup:
@@ -14,9 +13,8 @@ class Popup:
         self.buttons = buttons
 
     def get_rendering_components(self):
-        return \
-            [
-                RenderPacket(self.rect, Vector(0, self.position.y)),
-                RenderPacket(self.message_sprite, self.position + Vector(1, 1))
-            ] + \
-            [button_component for button in self.buttons for button_component in button.get_rendering_components()]
+        return [
+                   RenderPacket(self.rect, Vector(0, self.position.y)),
+                   RenderPacket(self.message_sprite, self.position + Vector(1, 1))
+               ] + \
+               [button_component for button in self.buttons for button_component in button.get_rendering_components()]

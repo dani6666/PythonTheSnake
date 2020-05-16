@@ -23,4 +23,8 @@ class App:
         game_intializer = GameInitializer()
         clock = MenuClock(input_provider, menu_manager, game_intializer)
 
-        clock.start_app()
+        while True:
+            clock.start_app()
+            menu_manager = MainMenuWindow()
+            RenderingManager.add_action_frame(menu_manager.get_action_frame())
+            clock.main_menu_window = menu_manager

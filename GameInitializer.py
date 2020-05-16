@@ -23,6 +23,6 @@ class GameInitializer:
         game_manager = GameManager(Vector(game_settings.board_size, game_settings.board_size))
         RenderingManager.add_action_frame(game_manager.get_action_frame())
         ResourceManager.initialize_score_bar(game_settings.board_size * 40)
-        clock = GameClock(frame_actions_manager, game_manager)
+        clock = GameClock(frame_actions_manager, game_manager, game_settings)
 
         clock.start_game()

@@ -59,14 +59,13 @@ class GameManager:
 
                 self.info_tracker.increment_score()
                 if self.info_tracker.score == self.grid_size.x * self.grid_size.y - 1:
-                    # return True
                     self.popup = PopupAssembly.get_standard_finish_popup(
                         Vector((self.grid_size.x - 11) // 2, (self.grid_size.y - 5) // 2),
                         self.grid_size.x,
                         Reason.game_won
                     )
                     self.action_frame.add_rendering_component(self.popup)
-                    self.running = False
+                    return True
 
                 potential_apple_pos = Vector(random.randrange(self.grid_size.x), random.randrange(self.grid_size.y))
                 slots_occupied_by_snake = self.snake.get_slots_occupied_by_body() + [self.snake.head.get_pos()]
@@ -76,20 +75,32 @@ class GameManager:
 
             # checking self collision
             if self.snake.check_collision():
-                # return True
                 self.popup = PopupAssembly.get_standard_finish_popup(
                     Vector((self.grid_size.x - 11) // 2, (self.grid_size.y - 5) // 2),
                     self.grid_size.x,
                     Reason.game_lost
                 )
                 self.action_frame.add_rendering_component(self.popup)
-                self.running = False
+                return True
 
             self.info_tracker.update_time()
 
-            return False
-
         return False
+
+    def reset(self):
+        self.moving_direction = Vector(1, 0)
+
+        snake_pos = Vector(random.randrange(self.grid_size.x), random.randrange(self.grid_size.y))
+        self.snake.reset(snake_pos)
+        apple_pos = Vector(random.randrange(self.grid_size.x), random.randrange(self.grid_size.y))
+        while apple_pos == snake_pos:
+            apple_pos = Vector(random.randrange(self.grid_size.x), random.randrange(self.grid_size.y))
+        self.apple.position = apple_pos
+
+        self.info_tracker.reset()
+
+        self.action_frame.remove_rendering_component(self.popup)
+        self.popup = None
 
     def get_current_game_state(self):
         return GameState(self.grid_size, self.apple.get_pos(), self.snake, self.moving_direction)

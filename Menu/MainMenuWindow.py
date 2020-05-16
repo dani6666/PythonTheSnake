@@ -33,7 +33,7 @@ class MainMenuWindow:
         ]
 
     def handle_mouse_click(self, click_position):
-        click_position = click_position.divide(self.node_size)
+        click_position = click_position // self.node_size
         if self.check_start_button_click(click_position):
             return True
 
