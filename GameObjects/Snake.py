@@ -45,4 +45,4 @@ class Snake:
         return len(self.body) + 1
 
     def get_rendering_components(self):
-        return [self.head.get_rendering_components()] + [bp.get_rendering_components() for bp in self.body]
+        return [bp.get_rendering_components() for bp in self.body] + [self.head.get_rendering_components()]

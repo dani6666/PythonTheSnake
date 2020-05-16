@@ -93,11 +93,11 @@ class MainMenuWindow:
 
     def get_game_settings(self):
         if self.small_board_button.is_marked:
-            board_size = 8
+            board_size = 9
         elif self.medium_board_button.is_marked:
-            board_size = 11
+            board_size = 12
         else:
-            board_size = 14
+            board_size = 16
 
         return GameSettings(self.is_bot_button.is_marked, self.rendering_enabled_button.is_marked, board_size)
 

@@ -10,6 +10,9 @@ from InfoTracker.ScoreTracker import ScoreTracker
 from InfoTracker.TimeTracker import TimeTracker
 from InfoTracker.InfoTracker import InfoTracker
 
+from PopupManagement.PopupAssembly import PopupAssembly
+from PopupManagement.Reason import Reason
+
 
 class GameManager:
 
@@ -29,43 +32,62 @@ class GameManager:
         self.info_tracker = InfoTracker(Vector(0, 0), score_tracker, time_tracker)
 
         self.running = True
+        self.action_frame = None
+        self.popup = None
 
     def simulate_move(self, actions):
-        if actions is not None and not Util.is_opposite(self.moving_direction, actions):
-            self.moving_direction = actions
+        if self.running:
+            if actions is not None and not Util.is_opposite(self.moving_direction, actions):
+                self.moving_direction = actions
 
-        self.snake.move(self.moving_direction)
+            self.snake.move(self.moving_direction)
 
-        # crossing border
-        snake_head_pos = self.snake.head.get_pos()
-        if snake_head_pos.x < 0:
-            self.snake.head.change_pos(Vector(self.grid_size.x - 1, snake_head_pos.y))
-        elif snake_head_pos.x > self.grid_size.x - 1:
-            self.snake.head.change_pos(Vector(0, snake_head_pos.y))
-        elif snake_head_pos.y < 0:
-            self.snake.head.change_pos(Vector(snake_head_pos.x, self.grid_size.y - 1))
-        elif snake_head_pos.y > self.grid_size.y - 1:
-            self.snake.head.change_pos(Vector(snake_head_pos.x, 0))
+            # crossing border
+            snake_head_pos = self.snake.head.get_pos()
+            if snake_head_pos.x < 0:
+                self.snake.head.change_pos(Vector(self.grid_size.x - 1, snake_head_pos.y))
+            elif snake_head_pos.x > self.grid_size.x - 1:
+                self.snake.head.change_pos(Vector(0, snake_head_pos.y))
+            elif snake_head_pos.y < 0:
+                self.snake.head.change_pos(Vector(snake_head_pos.x, self.grid_size.y - 1))
+            elif snake_head_pos.y > self.grid_size.y - 1:
+                self.snake.head.change_pos(Vector(snake_head_pos.x, 0))
 
-        # eating apple
-        if self.snake.head.get_pos() == self.apple.get_pos():
-            self.snake.grow_pending = True
+            # eating apple
+            if self.snake.head.get_pos() == self.apple.get_pos():
+                self.snake.grow_pending = True
 
-            self.info_tracker.increment_score()
-            if self.info_tracker.score == self.grid_size.x * self.grid_size.y - 1:
-                return True
+                self.info_tracker.increment_score()
+                if self.info_tracker.score == self.grid_size.x * self.grid_size.y - 1:
+                    # return True
+                    self.popup = PopupAssembly.get_standard_finish_popup(
+                        Vector((self.grid_size.x - 11) // 2, (self.grid_size.y - 5) // 2),
+                        self.grid_size.x,
+                        Reason.game_won
+                    )
+                    self.action_frame.add_rendering_component(self.popup)
+                    self.running = False
 
-            potential_apple_pos = Vector(random.randrange(self.grid_size.x), random.randrange(self.grid_size.y))
-            slots_occupied_by_snake = self.snake.get_slots_occupied_by_body() + [self.snake.head.get_pos()]
-            while potential_apple_pos in slots_occupied_by_snake:
                 potential_apple_pos = Vector(random.randrange(self.grid_size.x), random.randrange(self.grid_size.y))
-            self.apple.change_pos(potential_apple_pos)
+                slots_occupied_by_snake = self.snake.get_slots_occupied_by_body() + [self.snake.head.get_pos()]
+                while potential_apple_pos in slots_occupied_by_snake:
+                    potential_apple_pos = Vector(random.randrange(self.grid_size.x), random.randrange(self.grid_size.y))
+                self.apple.change_pos(potential_apple_pos)
 
-        # checking self collision
-        if self.snake.check_collision():
-            return True
+            # checking self collision
+            if self.snake.check_collision():
+                # return True
+                self.popup = PopupAssembly.get_standard_finish_popup(
+                    Vector((self.grid_size.x - 11) // 2, (self.grid_size.y - 5) // 2),
+                    self.grid_size.x,
+                    Reason.game_lost
+                )
+                self.action_frame.add_rendering_component(self.popup)
+                self.running = False
 
-        self.info_tracker.update_time()
+            self.info_tracker.update_time()
+
+            return False
 
         return False
 
@@ -73,8 +95,9 @@ class GameManager:
         return GameState(self.grid_size, self.apple.get_pos(), self.snake, self.moving_direction)
 
     def get_action_frame(self):
-        return ActionFrame(
+        self.action_frame = ActionFrame(
             Vector(self.grid_size.x, self.grid_size.y + 1),
             Vector(40, 40),
             [self.apple, self.snake, self.info_tracker]
         )
+        return self.action_frame
