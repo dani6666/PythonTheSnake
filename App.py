@@ -10,7 +10,8 @@ from Rendering.ResourceManager import ResourceManager
 
 class App:
 
-    def start(self):
+    @staticmethod
+    def start():
         pygame.init()
         pygame.font.init()
         pygame.display.set_mode((1, 1))

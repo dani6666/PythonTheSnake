@@ -44,4 +44,3 @@ class ResourceManager:
         ResourceManager.info_bar = pygame.Surface((width, 40))
         ResourceManager.info_bar.fill((0, 0, 0))
         ResourceManager.info_bar = ResourceManager.info_bar.convert()
-

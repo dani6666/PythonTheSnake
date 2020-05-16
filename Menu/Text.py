@@ -1,5 +1,3 @@
-import copy
-
 import pygame
 
 from Model.Vector import Vector

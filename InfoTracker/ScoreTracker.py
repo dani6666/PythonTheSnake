@@ -1,6 +1,4 @@
 from InfoTracker.DigitDisplay import DigitDisplay
-from Rendering.RenderPacket import RenderPacket
-from Rendering.ResourceManager import ResourceManager
 from Model.Vector import Vector
 
 
