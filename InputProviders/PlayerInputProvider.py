@@ -4,7 +4,7 @@ from Model.Vector import Vector
 
 
 class PlayerInputProvider:
-    def retrieve_input(self, game_state):
+    def retrieve_input(self):
         events = pygame.event.get()
         for event in events:
             if event.type == pygame.KEYDOWN:
