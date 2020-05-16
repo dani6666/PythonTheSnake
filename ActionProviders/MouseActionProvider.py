@@ -3,7 +3,7 @@ import pygame
 from Model.Vector import Vector
 
 
-class MouseInputProvider:
+class MouseActionProvider:
 
     @staticmethod
     def get_click_position():

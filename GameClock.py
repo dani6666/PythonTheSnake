@@ -14,9 +14,10 @@ class GameClock:
 
     def start_game(self):
         clock = pygame.time.Clock()
+        game_ended = False
 
-        while True:
+        while not game_ended:
             clock.tick(10)
             actions = self.frame_actions_manager.carry_frame_actions(self.game_manager.get_current_game_state())
-            self.game_manager.simulate_move(actions)
+            game_ended = self.game_manager.simulate_move(actions)
             RenderingManager.render()

@@ -53,7 +53,7 @@ class GameManager:
 
             self.info_tracker.increment_score()
             if self.info_tracker.score == self.grid_size.x * self.grid_size.y - 1:
-                self.running = False
+                return True
 
             potential_apple_pos = Vector(random.randrange(self.grid_size.x), random.randrange(self.grid_size.y))
             slots_occupied_by_snake = self.snake.get_slots_occupied_by_body() + [self.snake.head.get_pos()]
@@ -63,9 +63,11 @@ class GameManager:
 
         # checking self collision
         if self.snake.check_collision():
-            self.running = False
+            return True
 
         self.info_tracker.update_time()
+
+        return False
 
     def get_current_game_state(self):
         return GameState(self.grid_size, self.apple.get_pos(), self.snake, self.moving_direction)
