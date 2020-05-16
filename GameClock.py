@@ -17,7 +17,6 @@ class GameClock:
 
         while True:
             clock.tick(10)
-            input = self.loop.run_until_complete(
-                self.frame_actions_manager.carry_frame_actions(self.game_manager.get_current_game_state()))
+            input = self.frame_actions_manager.carry_frame_actions(self.game_manager.get_current_game_state())
             self.game_manager.simulate_move(input)
             RenderingManager.render()
