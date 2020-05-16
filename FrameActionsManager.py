@@ -1,3 +1,4 @@
+import asyncio
 import time
 from multiprocessing.dummy import Process
 
@@ -13,9 +14,9 @@ class FrameActionsManager:
 
     async def carry_frame_actions(self, game_state):
         if self.bot_input_provider:
-            thread = Process(target=self.bot_input_provider.start_thinking, args=game_state)
-            thread.start()
-            # thinking_task = asyncio.create_task(self.bot_input_provider.start_thinking(game_state))
+            # thread = Process(target=self.bot_input_provider.start_thinking, args=game_state)
+            # thread.start()
+            thinking_task = asyncio.create_task(self.bot_input_provider.start_thinking(game_state))
                 # self.event_loop.run_in_executor(None, , 0))
 
         if self.rendering_enabled:
@@ -26,5 +27,6 @@ class FrameActionsManager:
             return self.player_input_provider.retrieve_input()
 
         if self.bot_input_provider:
-            thread.join()
+            # thread.join()
+            await thinking_task
             return self.bot_input_provider.retrieve_input()
