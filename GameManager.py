@@ -71,4 +71,4 @@ class GameManager:
         return GameState(self.grid_size, self.apple.get_pos(), self.snake, self.moving_direction)
 
     def get_action_frame(self):
-        return ActionFrame(Vector(12, 12 + 1), Vector(40, 40), [self.apple, self.snake, self.info_tracker])
+        return ActionFrame(Vector(self.grid_size.x, self.grid_size.y + 1), Vector(40, 40), [self.apple, self.snake, self.info_tracker])
