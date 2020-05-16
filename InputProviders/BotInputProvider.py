@@ -1,12 +1,12 @@
-import asyncio
-import time
-from random import random
-
 from Model.Vector import Vector
 
 
 class BotInputProvider:
+
     bool = True
+
+    def __init__(self):
+        self.move = None
 
     def retrieve_input(self):
         return self.move

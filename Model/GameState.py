@@ -1,4 +1,5 @@
 class GameState:
+
     def __init__(self, grid_size, apple_position, snake, moving_direction):
         self.grid_size = grid_size
         self.apple_position =apple_position

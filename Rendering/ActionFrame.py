@@ -3,12 +3,14 @@ import pygame
 
 class ActionFrame:
 
-    def __init__(self, grid_size, node_size, components=[], bg_color=(150, 150, 150)):
+    def __init__(self, grid_size, node_size, components=None, bg_color=(150, 150, 150)):
         pygame.display.set_caption("Python the Game")
         self.window = pygame.display.set_mode((grid_size.x * node_size.x, grid_size.y * node_size.y))
         self.grid_size = grid_size
         self.node_size = node_size
         self.components = components
+        if not self.components:
+            self.components = []
         self.bg_color = bg_color
 
     def add_rendering_component(self, component):

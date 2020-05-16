@@ -2,7 +2,9 @@ import pygame
 
 
 class QuitInputProvider:
-    def check_quit(self):
+
+    @staticmethod
+    def check_quit():
         events = pygame.event.peek(pygame.QUIT)
         if events != 0:
             pygame.quit()

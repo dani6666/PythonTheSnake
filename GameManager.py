@@ -30,9 +30,9 @@ class GameManager:
 
         self.running = True
 
-    def simulate_move(self, input):
-        if input is not None and not Util.is_opposite(self.moving_direction, input):
-            self.moving_direction = input
+    def simulate_move(self, actions):
+        if actions is not None and not Util.is_opposite(self.moving_direction, actions):
+            self.moving_direction = actions
 
         self.snake.move(self.moving_direction)
 
@@ -71,4 +71,8 @@ class GameManager:
         return GameState(self.grid_size, self.apple.get_pos(), self.snake, self.moving_direction)
 
     def get_action_frame(self):
-        return ActionFrame(Vector(self.grid_size.x, self.grid_size.y + 1), Vector(40, 40), [self.apple, self.snake, self.info_tracker])
+        return ActionFrame(
+            Vector(self.grid_size.x, self.grid_size.y + 1),
+            Vector(40, 40),
+            [self.apple, self.snake, self.info_tracker]
+        )

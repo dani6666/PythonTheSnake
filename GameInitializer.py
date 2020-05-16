@@ -11,7 +11,8 @@ from Rendering.ResourceManager import ResourceManager
 
 class GameInitializer:
 
-    def start_game(self, game_settings):
+    @staticmethod
+    def start_game(game_settings):
         if game_settings.is_bot_game:
             bot_input = BotInputProvider()
             player_input = None

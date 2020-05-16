@@ -4,7 +4,9 @@ from Model.Vector import Vector
 
 
 class MouseInputProvider:
-    def get_click_position(self):
+
+    @staticmethod
+    def get_click_position():
         events = pygame.event.get()
         for event in events:
             if event.type == pygame.MOUSEBUTTONUP and event.button == pygame.BUTTON_LEFT:
