@@ -22,4 +22,4 @@ class PopupAssembly:
         else:
             message_sprite = ResourceManager.msg_p2_wins
 
-        return Popup(position, Vector(length, 5), message_sprite, [back_button, retry_button])
+        return Popup(position, Vector(length, 5), message_sprite, back_button, retry_button)

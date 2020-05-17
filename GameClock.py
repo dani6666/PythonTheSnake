@@ -15,11 +15,10 @@ class GameClock:
 
     def start_game(self):
         clock = pygame.time.Clock()
-        game_ended = False
         done = False
 
         while not done:
-
+            game_ended = False
             while not game_ended:
                 clock.tick(10)
                 actions = self.frame_actions_manager.carry_frame_actions(self.game_manager.get_current_game_state())
@@ -27,19 +26,17 @@ class GameClock:
                 RenderingManager.render()
 
             popup = self.game_manager.popup
-            popup_closed = False
+            leaving_game = None
 
-            while not popup_closed:
+            while leaving_game is None:
                 clock.tick(10)
                 QuitHandler.check_quit()
                 click = MouseActionProvider.get_click_position()
                 if click:
-                    if popup.buttons[0].contains_position(click // Vector(40, 40)):
+                    leaving_game = popup.check_click(click)
+                    if leaving_game == True:
                         RenderingManager.reset_action_frames()
-                        popup_closed = True
                         done = True
-                    elif popup.buttons[1].contains_position(click // Vector(40, 40)):
-                        game_ended = False
+                    elif leaving_game == False:
                         self.game_manager.reset()
-                        popup_closed = True
                 RenderingManager.render()
