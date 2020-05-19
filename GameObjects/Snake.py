@@ -44,5 +44,10 @@ class Snake:
     def get_size(self):
         return len(self.body) + 1
 
+    def reset(self, head_pos):
+        self.head.position = head_pos
+        self.body = []
+        self.grow_pending = False
+
     def get_rendering_components(self):
-        return [self.head.get_rendering_components()] + [bp.get_rendering_components() for bp in self.body]
+        return [bp.get_rendering_components() for bp in self.body] + [self.head.get_rendering_components()]

@@ -3,7 +3,7 @@ import pygame
 from Model.Vector import Vector
 
 
-class PlayerInputProvider:
+class PlayerActionProvider:
 
     @staticmethod
     def retrieve_input():

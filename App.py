@@ -1,7 +1,7 @@
 from GameInitializer import GameInitializer
 from Menu.MainMenuWindow import MainMenuWindow
 from MenuClock import MenuClock
-from InputProviders.MouseInputProvider import MouseInputProvider
+from ActionProviders.MouseActionProvider import MouseActionProvider
 from Rendering.RenderingManager import RenderingManager
 import pygame
 
@@ -17,10 +17,14 @@ class App:
         pygame.display.set_mode((1, 1))
         ResourceManager.initialize_font()
         ResourceManager.convert_resources()
-        input_provider = MouseInputProvider()
+        input_provider = MouseActionProvider()
         menu_manager = MainMenuWindow()
         RenderingManager.add_action_frame(menu_manager.get_action_frame())
         game_intializer = GameInitializer()
         clock = MenuClock(input_provider, menu_manager, game_intializer)
 
-        clock.start_app()
+        while True:
+            clock.start_app()
+            menu_manager = MainMenuWindow()
+            RenderingManager.add_action_frame(menu_manager.get_action_frame())
+            clock.main_menu_window = menu_manager

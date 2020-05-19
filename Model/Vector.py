@@ -10,6 +10,9 @@ class Vector:
     def __add__(self, other):
         return Vector(self.x + other.x, self.y + other.y)
 
+    def __floordiv__(self, other):
+        return Vector(self.x // other.x, self.y // other.y)
+
     def to_tup(self):
         return self.x, self.y
 

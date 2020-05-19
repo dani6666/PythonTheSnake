@@ -1,7 +1,7 @@
 from Model.Vector import Vector
 
 
-class BotInputProvider:
+class BotActionProvider:
 
     bool = True
 
@@ -12,9 +12,9 @@ class BotInputProvider:
         return self.move
 
     def start_thinking(self, game_state):
-        if BotInputProvider.bool:
+        if BotActionProvider.bool:
             self.move = Vector(0, 1)
         else:
             self.move = Vector(1, 0)
 
-        BotInputProvider.bool = not BotInputProvider.bool
+        BotActionProvider.bool = not BotActionProvider.bool

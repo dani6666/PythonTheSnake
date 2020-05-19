@@ -1,6 +1,7 @@
 import pygame
 
 from Rendering.RenderingManager import RenderingManager
+from ActionProviders.QuitHandler import QuitHandler
 
 
 class MenuClock:
@@ -15,6 +16,7 @@ class MenuClock:
         game_starting = False
         while not game_starting:
             clock.tick(10)
+            QuitHandler.check_quit()
             click = self.input_provider.get_click_position()
             if click:
                 game_starting = self.main_menu_window.handle_mouse_click(click)
