@@ -14,20 +14,21 @@ class MainMenuWindow:
         self.game_mode_text = Text(Vector(0, 0), "Game mode")
         self.is_player_button = Button(Vector(1, 1), Vector(1, 1), True, "Player")
         self.is_bot_button = Button(Vector(1, 2), Vector(1, 1), False, "Bot")
+        self.is_multi_button = Button(Vector(1, 3), Vector(1, 1), False, "Multiplayer")
 
-        self.rendering_text = Text(Vector(0, 4), "Rendering")
-        self.rendering_enabled_button = Button(Vector(1, 5), Vector(1, 1), True, "Enabled")
-        self.rendering_disabled_button = Button(Vector(1, 6), Vector(1, 1), False, "Disabled")
+        self.rendering_text = Text(Vector(0, 5), "Rendering")
+        self.rendering_enabled_button = Button(Vector(1, 6), Vector(1, 1), True, "Enabled")
+        self.rendering_disabled_button = Button(Vector(1, 7), Vector(1, 1), False, "Disabled")
 
-        self.board_size_text = Text(Vector(0, 8), "Board size")
-        self.small_board_button = Button(Vector(1, 9), Vector(1, 1), True, "Small")
-        self.medium_board_button = Button(Vector(1, 10), Vector(1, 1), False, "Medium")
-        self.large_board_button = Button(Vector(1, 11), Vector(1, 1), False, "Large")
+        self.board_size_text = Text(Vector(0, 9), "Board size")
+        self.small_board_button = Button(Vector(1, 10), Vector(1, 1), True, "Small")
+        self.medium_board_button = Button(Vector(1, 11), Vector(1, 1), False, "Medium")
+        self.large_board_button = Button(Vector(1, 12), Vector(1, 1), False, "Large")
 
-        self.start_button = Button(Vector(4, 13), Vector(3, 1), False, "Start game", sprite=ResourceManager.snake_head)
+        self.start_button = Button(Vector(4, 14), Vector(3, 1), False, "Start game", sprite=ResourceManager.snake_head)
 
         self.buttons = [
-            self.start_button, self.is_player_button, self.is_bot_button, self.game_mode_text,
+            self.start_button, self.is_player_button, self.is_bot_button, self.is_multi_button, self.game_mode_text,
             self.rendering_text, self.rendering_disabled_button, self.rendering_enabled_button,
             self.board_size_text, self.small_board_button, self.medium_board_button, self.large_board_button
         ]
@@ -55,10 +56,19 @@ class MainMenuWindow:
         if self.is_bot_button.contains_position(click_position):
             self.is_bot_button.is_marked = True
             self.is_player_button.is_marked = False
+            self.is_multi_button.is_marked = False
             return True
         elif self.is_player_button.contains_position(click_position):
             self.is_bot_button.is_marked = False
             self.is_player_button.is_marked = True
+            self.is_multi_button.is_marked = False
+            self.rendering_enabled_button.is_marked = True
+            self.rendering_disabled_button.is_marked = False
+            return True
+        elif self.is_multi_button.contains_position(click_position):
+            self.is_bot_button.is_marked = False
+            self.is_player_button.is_marked = False
+            self.is_multi_button.is_marked = True
             self.rendering_enabled_button.is_marked = True
             self.rendering_disabled_button.is_marked = False
             return True
@@ -99,11 +109,16 @@ class MainMenuWindow:
         else:
             board_size = 16
 
-        return GameSettings(self.is_bot_button.is_marked, self.rendering_enabled_button.is_marked, board_size)
+        return GameSettings(
+            self.is_bot_button.is_marked,
+            self.is_multi_button.is_marked,
+            self.rendering_enabled_button.is_marked,
+            board_size
+        )
 
     def get_action_frame(self):
         return ActionFrame(
-            Vector(11, 15),
+            Vector(11, 16),
             self.node_size,
             self.buttons
         )

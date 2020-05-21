@@ -15,6 +15,9 @@ class GameInitializer:
         if game_settings.is_bot_game:
             bot_input = BotActionProvider()
             player_input = None
+        elif game_settings.is_multi_game:
+            bot_input = None
+            player_input = PlayerActionProvider()
         else:
             bot_input = None
             player_input = PlayerActionProvider()
