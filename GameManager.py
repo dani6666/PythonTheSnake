@@ -37,8 +37,9 @@ class GameManager:
 
     def simulate_move(self, actions):
         if self.running:
-            if actions is not None and not Util.is_opposite(self.moving_direction, actions):
-                self.moving_direction = actions
+            for a in actions:
+                if a and not Util.is_opposite(self.moving_direction, a):
+                    self.moving_direction = a
 
             self.snake.move(self.moving_direction)
 

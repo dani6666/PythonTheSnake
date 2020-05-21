@@ -1,20 +1,17 @@
 import pygame
 
-from Model.Vector import Vector
-
 
 class PlayerActionProvider:
 
-    @staticmethod
-    def retrieve_input():
-        events = pygame.event.get()
-        for event in events:
-            if event.type == pygame.KEYDOWN:
-                if event.key == pygame.K_LEFT:
-                    return Vector(-1, 0)
-                elif event.key == pygame.K_RIGHT:
-                    return Vector(1, 0)
-                elif event.key == pygame.K_UP:
-                    return Vector(0, -1)
-                elif event.key == pygame.K_DOWN:
-                    return Vector(0, 1)
+    def __init__(self, input_sieves):
+        self.input_sieves = input_sieves
+        self.players = len(input_sieves)
+
+    def retrieve_input(self):
+        events = [e for e in pygame.event.get() if e.type == pygame.KEYDOWN]
+        actions = []
+
+        for i in range(self.players):
+            actions.append(self.input_sieves[i].get_move(events))
+
+        return actions

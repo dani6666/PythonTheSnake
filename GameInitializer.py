@@ -7,6 +7,9 @@ from Rendering.RenderingManager import RenderingManager
 from Model.Vector import Vector
 from Rendering.ResourceManager import ResourceManager
 
+from ActionProviders.SieveType import SieveType
+from ActionProviders.InputSieve import InputSieve
+
 
 class GameInitializer:
 
@@ -17,10 +20,12 @@ class GameInitializer:
             player_input = None
         elif game_settings.is_multi_game:
             bot_input = None
-            player_input = PlayerActionProvider()
+            player_input = PlayerActionProvider(
+                [InputSieve(SieveType.arrow_player), InputSieve(SieveType.wasd_player)]
+            )
         else:
             bot_input = None
-            player_input = PlayerActionProvider()
+            player_input = PlayerActionProvider([InputSieve(SieveType.arrow_player)])
         frame_actions_manager = \
             FrameActionsManager(game_settings.rendering_enabled, bot_input, player_input)
         game_manager = GameManager(Vector(game_settings.board_size, game_settings.board_size))
