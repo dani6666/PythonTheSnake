@@ -16,8 +16,14 @@ class BodyPiece:
     def get_pos(self):
         return self.position
 
-    def get_rendering_components(self):
-        if self.fat:
-            return RenderPacket(ResourceManager.snake_fat_body, self.position + Vector(0, 1))
+    def get_rendering_components(self, snd):
+        if not snd:
+            if self.fat:
+                return RenderPacket(ResourceManager.snake_fat_body0, self.position + Vector(0, 1))
+            else:
+                return RenderPacket(ResourceManager.snake_body0, self.position + Vector(0, 1))
         else:
-            return RenderPacket(ResourceManager.snake_body, self.position + Vector(0, 1))
+            if self.fat:
+                return RenderPacket(ResourceManager.snake_fat_body1, self.position + Vector(0, 1))
+            else:
+                return RenderPacket(ResourceManager.snake_body1, self.position + Vector(0, 1))

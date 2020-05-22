@@ -3,9 +3,12 @@ import pygame
 
 class ResourceManager:
 
-    snake_head = pygame.image.load("resources/head.png")
-    snake_body = pygame.image.load("resources/body.png")
-    snake_fat_body = pygame.image.load("resources/fatbody.png")
+    snake_head0 = pygame.image.load("resources/head0.png")
+    snake_body0 = pygame.image.load("resources/body0.png")
+    snake_fat_body0 = pygame.image.load("resources/fatbody0.png")
+    snake_head1 = pygame.image.load("resources/head1.png")
+    snake_body1 = pygame.image.load("resources/body1.png")
+    snake_fat_body1 = pygame.image.load("resources/fatbody1.png")
     apple = pygame.image.load("resources/apple.png")
     button_inactive = pygame.image.load("resources/button_inactive.png")
     text_font = None
@@ -22,6 +25,7 @@ class ResourceManager:
     msg_lose = pygame.image.load("resources/game_over.png")
     msg_p1_wins = pygame.image.load("resources/p1_wins.png")
     msg_p2_wins = pygame.image.load("resources/p2_wins.png")
+    msg_tie = pygame.image.load("resources/tie.png")
 
     @staticmethod
     def initialize_font():
@@ -29,12 +33,18 @@ class ResourceManager:
 
     @staticmethod
     def convert_resources():
-        ResourceManager.snake_head = ResourceManager.snake_head.convert()
-        ResourceManager.snake_head.set_colorkey((255, 0, 255))
-        ResourceManager.snake_body = ResourceManager.snake_body.convert()
-        ResourceManager.snake_body.set_colorkey((255, 0, 255))
-        ResourceManager.snake_fat_body = ResourceManager.snake_fat_body.convert()
-        ResourceManager.snake_fat_body.set_colorkey((255, 0, 255))
+        ResourceManager.snake_head0 = ResourceManager.snake_head0.convert()
+        ResourceManager.snake_head0.set_colorkey((255, 0, 255))
+        ResourceManager.snake_body0 = ResourceManager.snake_body0.convert()
+        ResourceManager.snake_body0.set_colorkey((255, 0, 255))
+        ResourceManager.snake_fat_body0 = ResourceManager.snake_fat_body0.convert()
+        ResourceManager.snake_fat_body0.set_colorkey((255, 0, 255))
+        ResourceManager.snake_head1 = ResourceManager.snake_head1.convert()
+        ResourceManager.snake_head1.set_colorkey((255, 0, 255))
+        ResourceManager.snake_body1 = ResourceManager.snake_body1.convert()
+        ResourceManager.snake_body1.set_colorkey((255, 0, 255))
+        ResourceManager.snake_fat_body1 = ResourceManager.snake_fat_body1.convert()
+        ResourceManager.snake_fat_body1.set_colorkey((255, 0, 255))
         ResourceManager.apple = ResourceManager.apple.convert()
         ResourceManager.apple.set_colorkey((255, 0, 255))
         ResourceManager.button_inactive = ResourceManager.button_inactive.convert()
@@ -59,6 +69,8 @@ class ResourceManager:
         ResourceManager.msg_p1_wins.set_colorkey((255, 0, 255))
         ResourceManager.msg_p2_wins = ResourceManager.msg_p2_wins.convert()
         ResourceManager.msg_p2_wins.set_colorkey((255, 0, 255))
+        ResourceManager.msg_tie = ResourceManager.msg_tie.convert()
+        ResourceManager.msg_tie.set_colorkey((255, 0, 255))
 
     @staticmethod
     def initialize_score_bar(width):

@@ -32,5 +32,8 @@ class Head:
         self.position.y += moving_direction.y
         return previous_pos
 
-    def get_rendering_components(self):
-        return RenderPacket(ResourceManager.snake_head, self.position + Vector(0, 1), self.rotation)
+    def get_rendering_components(self, snd):
+        if not snd:
+            return RenderPacket(ResourceManager.snake_head0, self.position + Vector(0, 1), self.rotation)
+        else:
+            return RenderPacket(ResourceManager.snake_head1, self.position + Vector(0, 1), self.rotation)

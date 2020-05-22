@@ -7,14 +7,16 @@ from Model.Vector import Vector
 
 class Snake:
 
-    def __init__(self, pos=Vector(0, 0)):
+    def __init__(self, pos=Vector(0, 0), snd=False):
         self.head = Head(pos)
         self.body = []
         self.grow_pending = False
+        self.moving_direction = Vector(1, 0)
+        self.snd = snd
 
-    def move(self, moving_direction):
+    def move(self):
 
-        previous_head_pos = self.head.move(moving_direction)
+        previous_head_pos = self.head.move(self.moving_direction)
 
         if self.body:
             if self.body[-1].fat:
@@ -30,10 +32,13 @@ class Snake:
             else:
                 self.body[0].fat = True
 
-        self.head.move_direction_to_rotation(moving_direction)
+        self.head.move_direction_to_rotation(self.moving_direction)
 
     def get_slots_occupied_by_body(self):
         return [bp.get_pos() for bp in self.body]
+
+    def get_slots_occupied_by_snake(self):
+        return [bp.get_pos() for bp in self.body] + [self.head.position]
 
     def check_collision(self):
         if self.head.get_pos() in self.get_slots_occupied_by_body():
@@ -48,6 +53,8 @@ class Snake:
         self.head.position = head_pos
         self.body = []
         self.grow_pending = False
+        self.moving_direction = Vector(1, 0)
 
     def get_rendering_components(self):
-        return [bp.get_rendering_components() for bp in self.body] + [self.head.get_rendering_components()]
+        return [bp.get_rendering_components(self.snd) for bp in self.body] + \
+               [self.head.get_rendering_components(self.snd)]

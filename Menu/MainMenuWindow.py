@@ -25,7 +25,7 @@ class MainMenuWindow:
         self.medium_board_button = Button(Vector(1, 11), Vector(1, 1), False, "Medium")
         self.large_board_button = Button(Vector(1, 12), Vector(1, 1), False, "Large")
 
-        self.start_button = Button(Vector(4, 14), Vector(3, 1), False, "Start game", sprite=ResourceManager.snake_head)
+        self.start_button = Button(Vector(4, 14), Vector(3, 1), False, "Start game", sprite=ResourceManager.snake_head0)
 
         self.buttons = [
             self.start_button, self.is_player_button, self.is_bot_button, self.is_multi_button, self.game_mode_text,
