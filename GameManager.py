@@ -20,14 +20,15 @@ class GameManager:
         self.grid_size = grid_size
 
         self.is_multi = (amount_of_players > 1)
+        self.amount_of_players = amount_of_players
         snake_pos = Vector(random.randrange(grid_size.x), random.randrange(grid_size.y))
         self.snakes = []
         self.snakes.append(Snake(snake_pos))
-        for i in range(amount_of_players - 1):
+        for i in range(1, amount_of_players):
             snake_pos = Vector(random.randrange(grid_size.x), random.randrange(grid_size.y))
             while snake_pos in [s.head.position for s in self.snakes]:
                 snake_pos = Vector(random.randrange(grid_size.x), random.randrange(grid_size.y))
-            self.snakes.append(Snake(snake_pos, snd=True))
+            self.snakes.append(Snake(snake_pos, num=i))
         apple_pos = Vector(random.randrange(grid_size.x), random.randrange(grid_size.y))
         while apple_pos in [s.head.position for s in self.snakes]:
             apple_pos = Vector(random.randrange(grid_size.x), random.randrange(grid_size.y))
@@ -43,24 +44,22 @@ class GameManager:
     def simulate_move(self, actions):
         place_new_apple = False
         for i, snake in enumerate(self.snakes):
-            action = actions[i]
-            if action and not Util.is_opposite(snake.moving_direction, action):
-                snake.moving_direction = action
+            if snake.alive:
+                action = actions[i]
 
-            snake.move()
+                if action and not Util.is_opposite(snake.moving_direction, action):
+                    snake.moving_direction = action
+                snake.move()
+                self.handle_border_cross(snake)
 
-            self.handle_border_cross(snake)
-
-            # eating apple
-            if snake.head.get_pos() == self.apple.get_pos():
-                snake.grow_pending = True
-
-                self.info_tracker.increment_score()
-                if self.info_tracker.score == self.grid_size.x * self.grid_size.y - 1:
-                    self.determine_winner_apple()
-                    return True
-
-                place_new_apple = True
+                # eating apple
+                if not place_new_apple and snake.head.get_pos() == self.apple.get_pos():
+                    snake.grow_pending = True
+                    self.info_tracker.increment_score()
+                    if self.info_tracker.score == self.grid_size.x * self.grid_size.y - 1:
+                        self.determine_winner_apple()
+                        return True
+                    place_new_apple = True
 
         if place_new_apple:
             self.place_new_apple()
@@ -68,7 +67,7 @@ class GameManager:
         self.info_tracker.update_time()
 
         # check if there are any collisions; if there are - determine the winner
-        return self.handle_winner_determining()
+        return self.handle_collisions()
 
     def handle_border_cross(self, snake):
         snake_head_pos = snake.head.get_pos()
@@ -99,24 +98,33 @@ class GameManager:
             potential_apple_pos = Vector(random.randrange(self.grid_size.x), random.randrange(self.grid_size.y))
         self.apple.change_pos(potential_apple_pos)
 
-    def handle_winner_determining(self):
+    def handle_collisions(self):
         if not self.is_multi:
             if self.snakes[0].check_collision():
                 self.call_popup(Reason.game_lost)
                 return True
         else:
-            one_collide = self.snakes[0].check_collision() or \
-                self.snakes[0].head.position in self.snakes[1].get_slots_occupied_by_snake()
-            two_collide = self.snakes[1].check_collision() or \
-                self.snakes[1].head.position in self.snakes[0].get_slots_occupied_by_snake()
-            if one_collide and two_collide:
+            alive_n = 0
+            dead = []
+            for i, snake in enumerate(self.snakes):
+                if snake.alive:
+                    slots_occupied_by_other_snakes = [
+                        slot for j in range(self.amount_of_players)
+                        for slot in self.snakes[j].get_slots_occupied_by_snake() if j != i and self.snakes[j].alive
+                    ]
+                    dead.append((snake.check_collision() or snake.head.position in slots_occupied_by_other_snakes))
+                else:
+                    dead.append(True)
+            for i, snake in enumerate(self.snakes):
+                snake.alive = not dead[i]
+                if snake.alive:
+                    alive_n += 1
+            if not alive_n:
                 self.call_popup(Reason.tie)
                 return True
-            elif two_collide:
-                self.call_popup(Reason.p1_wins)
-                return True
-            elif one_collide:
-                self.call_popup(Reason.p2_wins)
+            elif alive_n == 1:
+                alive_i = [i for i in range(self.amount_of_players) if self.snakes[i].alive][0]
+                self.call_popup(alive_i)
                 return True
         return False
 

@@ -17,11 +17,9 @@ class PopupAssembly:
             message_sprite = ResourceManager.msg_lose
         elif reason == Reason.game_won:
             message_sprite = ResourceManager.msg_win
-        elif reason == Reason.p1_wins:
-            message_sprite = ResourceManager.msg_p1_wins
-        elif reason == Reason.p2_wins:
-            message_sprite = ResourceManager.msg_p2_wins
-        else:
+        elif reason == Reason.tie:
             message_sprite = ResourceManager.msg_tie
+        else:
+            message_sprite = ResourceManager.msg_px_wins[reason]
 
         return Popup(position, Vector(length, 5), message_sprite, [back_button, retry_button])

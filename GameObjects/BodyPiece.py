@@ -6,9 +6,10 @@ from Rendering.ResourceManager import ResourceManager
 
 class BodyPiece:
 
-    def __init__(self, position=Vector(0, 0)):
+    def __init__(self, position=Vector(0, 0), num=0):
         self.position = position
         self.fat = False
+        self.num = num
 
     def change_pos(self, position):
         self.position = position
@@ -16,14 +17,8 @@ class BodyPiece:
     def get_pos(self):
         return self.position
 
-    def get_rendering_components(self, snd):
-        if not snd:
-            if self.fat:
-                return RenderPacket(ResourceManager.snake_fat_body0, self.position + Vector(0, 1))
-            else:
-                return RenderPacket(ResourceManager.snake_body0, self.position + Vector(0, 1))
+    def get_rendering_components(self):
+        if self.fat:
+            return RenderPacket(ResourceManager.snake_fatbodies[self.num], self.position + Vector(0, 1))
         else:
-            if self.fat:
-                return RenderPacket(ResourceManager.snake_fat_body1, self.position + Vector(0, 1))
-            else:
-                return RenderPacket(ResourceManager.snake_body1, self.position + Vector(0, 1))
+            return RenderPacket(ResourceManager.snake_bodies[self.num], self.position + Vector(0, 1))

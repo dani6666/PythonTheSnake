@@ -25,7 +25,7 @@ class Button:
             button_image = self.sprite
         else:
             if self.is_marked:
-                button_image = ResourceManager.snake_body0
+                button_image = ResourceManager.snake_bodies[0]
             else:
                 button_image = ResourceManager.button_inactive
         return [RenderPacket(button_image, copy.deepcopy(self.position)),

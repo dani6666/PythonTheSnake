@@ -13,8 +13,11 @@ class Vector:
     def __floordiv__(self, other):
         return Vector(self.x // other.x, self.y // other.y)
 
+    def __str__(self):
+        return "({}, {})".format(self.x, self.y)
+
+    def __repr__(self):
+        return self.__str__()
+
     def to_tup(self):
         return self.x, self.y
-
-    def divide(self, divide_vector):
-        return Vector(self.x // divide_vector.x, self.y // divide_vector.y)

@@ -1,7 +1,9 @@
 class Reason:
 
-    game_won = 0
-    game_lost = 1
-    p1_wins = 2
-    p2_wins = 3
+    p1_wins = 0
+    p2_wins = 1
+    p3_wins = 2
+    p4_wins = 3
     tie = 4
+    game_won = 5
+    game_lost = 6

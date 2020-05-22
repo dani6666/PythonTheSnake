@@ -6,9 +6,10 @@ from Rendering.ResourceManager import ResourceManager
 
 class Head:
 
-    def __init__(self, position=Vector(0, 0), rotation=0):
+    def __init__(self, position=Vector(0, 0), rotation=0, num=0):
         self.position = position
         self.rotation = rotation
+        self.num = num
 
     def change_pos(self, position):
         self.position = position
@@ -32,8 +33,5 @@ class Head:
         self.position.y += moving_direction.y
         return previous_pos
 
-    def get_rendering_components(self, snd):
-        if not snd:
-            return RenderPacket(ResourceManager.snake_head0, self.position + Vector(0, 1), self.rotation)
-        else:
-            return RenderPacket(ResourceManager.snake_head1, self.position + Vector(0, 1), self.rotation)
+    def get_rendering_components(self):
+        return RenderPacket(ResourceManager.snake_heads[self.num], self.position + Vector(0, 1), self.rotation)

@@ -3,12 +3,15 @@ import pygame
 
 class ResourceManager:
 
-    snake_head0 = pygame.image.load("resources/head0.png")
-    snake_body0 = pygame.image.load("resources/body0.png")
-    snake_fat_body0 = pygame.image.load("resources/fatbody0.png")
-    snake_head1 = pygame.image.load("resources/head1.png")
-    snake_body1 = pygame.image.load("resources/body1.png")
-    snake_fat_body1 = pygame.image.load("resources/fatbody1.png")
+    snake_heads = []
+    for i in range(4):
+        snake_heads.append(pygame.image.load("resources/head" + str(i) + ".png"))
+    snake_bodies = []
+    for i in range(4):
+        snake_bodies.append(pygame.image.load("resources/body" + str(i) + ".png"))
+    snake_fatbodies = []
+    for i in range(4):
+        snake_fatbodies.append(pygame.image.load("resources/fatbody" + str(i) + ".png"))
     apple = pygame.image.load("resources/apple.png")
     button_inactive = pygame.image.load("resources/button_inactive.png")
     text_font = None
@@ -23,8 +26,9 @@ class ResourceManager:
 
     msg_win = pygame.image.load("resources/you_win.png")
     msg_lose = pygame.image.load("resources/game_over.png")
-    msg_p1_wins = pygame.image.load("resources/p1_wins.png")
-    msg_p2_wins = pygame.image.load("resources/p2_wins.png")
+    msg_px_wins = []
+    for i in range(1, 5):
+        msg_px_wins.append(pygame.image.load("resources/p" + str(i) + "_wins.png"))
     msg_tie = pygame.image.load("resources/tie.png")
 
     @staticmethod
@@ -33,18 +37,15 @@ class ResourceManager:
 
     @staticmethod
     def convert_resources():
-        ResourceManager.snake_head0 = ResourceManager.snake_head0.convert()
-        ResourceManager.snake_head0.set_colorkey((255, 0, 255))
-        ResourceManager.snake_body0 = ResourceManager.snake_body0.convert()
-        ResourceManager.snake_body0.set_colorkey((255, 0, 255))
-        ResourceManager.snake_fat_body0 = ResourceManager.snake_fat_body0.convert()
-        ResourceManager.snake_fat_body0.set_colorkey((255, 0, 255))
-        ResourceManager.snake_head1 = ResourceManager.snake_head1.convert()
-        ResourceManager.snake_head1.set_colorkey((255, 0, 255))
-        ResourceManager.snake_body1 = ResourceManager.snake_body1.convert()
-        ResourceManager.snake_body1.set_colorkey((255, 0, 255))
-        ResourceManager.snake_fat_body1 = ResourceManager.snake_fat_body1.convert()
-        ResourceManager.snake_fat_body1.set_colorkey((255, 0, 255))
+        for i in range(4):
+            ResourceManager.snake_heads[i] = ResourceManager.snake_heads[i].convert()
+            ResourceManager.snake_heads[i].set_colorkey((255, 0, 255))
+        for i in range(4):
+            ResourceManager.snake_bodies[i] = ResourceManager.snake_bodies[i].convert()
+            ResourceManager.snake_bodies[i].set_colorkey((255, 0, 255))
+        for i in range(4):
+            ResourceManager.snake_fatbodies[i] = ResourceManager.snake_fatbodies[i].convert()
+            ResourceManager.snake_fatbodies[i].set_colorkey((255, 0, 255))
         ResourceManager.apple = ResourceManager.apple.convert()
         ResourceManager.apple.set_colorkey((255, 0, 255))
         ResourceManager.button_inactive = ResourceManager.button_inactive.convert()
@@ -65,10 +66,9 @@ class ResourceManager:
         ResourceManager.msg_win.set_colorkey((255, 0, 255))
         ResourceManager.msg_lose = ResourceManager.msg_lose.convert()
         ResourceManager.msg_lose.set_colorkey((255, 0, 255))
-        ResourceManager.msg_p1_wins = ResourceManager.msg_p1_wins.convert()
-        ResourceManager.msg_p1_wins.set_colorkey((255, 0, 255))
-        ResourceManager.msg_p2_wins = ResourceManager.msg_p2_wins.convert()
-        ResourceManager.msg_p2_wins.set_colorkey((255, 0, 255))
+        for i in range(4):
+            ResourceManager.msg_px_wins[i] = ResourceManager.msg_px_wins[i].convert()
+            ResourceManager.msg_px_wins[i].set_colorkey((255, 0, 255))
         ResourceManager.msg_tie = ResourceManager.msg_tie.convert()
         ResourceManager.msg_tie.set_colorkey((255, 0, 255))
 

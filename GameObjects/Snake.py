@@ -7,12 +7,14 @@ from Model.Vector import Vector
 
 class Snake:
 
-    def __init__(self, pos=Vector(0, 0), snd=False):
-        self.head = Head(pos)
+    def __init__(self, pos=Vector(0, 0), num=0):
+        self.head = Head(pos, num=num)
         self.body = []
         self.grow_pending = False
         self.moving_direction = Vector(1, 0)
-        self.snd = snd
+        self.num = num
+
+        self.alive = True
 
     def move(self):
 
@@ -28,7 +30,7 @@ class Snake:
         if self.grow_pending:
             self.grow_pending = False
             if not self.body:
-                self.body.append(BodyPiece(previous_head_pos))
+                self.body.append(BodyPiece(previous_head_pos, num=self.num))
             else:
                 self.body[0].fat = True
 
@@ -55,6 +57,11 @@ class Snake:
         self.grow_pending = False
         self.moving_direction = Vector(1, 0)
 
+        self.alive = True
+
     def get_rendering_components(self):
-        return [bp.get_rendering_components(self.snd) for bp in self.body] + \
-               [self.head.get_rendering_components(self.snd)]
+        if self.alive:
+            return [bp.get_rendering_components() for bp in self.body] + \
+                   [self.head.get_rendering_components()]
+        else:
+            return []
