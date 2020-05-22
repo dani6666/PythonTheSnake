@@ -21,14 +21,21 @@ class GameManager:
 
         self.is_multi = (amount_of_players > 1)
         self.amount_of_players = amount_of_players
-        snake_pos = Vector(random.randrange(grid_size.x), random.randrange(grid_size.y))
         self.snakes = []
+        snake_pos = Vector(random.randrange(grid_size.x), random.randrange(grid_size.y))
         self.snakes.append(Snake(snake_pos))
+        self.snakes[0].grow_pending = True
+        self.snakes[0].move()
+        self.handle_border_cross(self.snakes[0])
         for i in range(1, amount_of_players):
+            occupied_axis = [snake.head.position.y for snake in self.snakes]
             snake_pos = Vector(random.randrange(grid_size.x), random.randrange(grid_size.y))
-            while snake_pos in [s.head.position for s in self.snakes]:
-                snake_pos = Vector(random.randrange(grid_size.x), random.randrange(grid_size.y))
+            while snake_pos.y in occupied_axis:
+                snake_pos.y = random.randrange(grid_size.y)
             self.snakes.append(Snake(snake_pos, num=i))
+            self.snakes[i].grow_pending = True
+            self.snakes[i].move()
+            self.handle_border_cross(self.snakes[i])
         apple_pos = Vector(random.randrange(grid_size.x), random.randrange(grid_size.y))
         while apple_pos in [s.head.position for s in self.snakes]:
             apple_pos = Vector(random.randrange(grid_size.x), random.randrange(grid_size.y))
