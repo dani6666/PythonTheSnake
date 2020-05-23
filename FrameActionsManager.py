@@ -16,7 +16,7 @@ class FrameActionsManager:
         thread = None
 
         if self.bot_action_provider:
-            thread = threading.Thread(target=self.bot_action_provider.start_thinking, args=game_state)
+            thread = threading.Thread(target=self.bot_action_provider.start_thinking, args=(game_state,))
             thread.start()
 
         if self.rendering_enabled:
