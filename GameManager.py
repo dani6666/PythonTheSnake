@@ -1,8 +1,10 @@
 import random
 
 import Util
+from Model.GameResult import GameResult
 from Model.GameState import GameState
 from GameObjects.Snake import Snake
+from Model.SpecialAction import SpecialAction
 from Model.Vector import Vector
 from GameObjects.Apple import Apple
 from Rendering.ActionFrame import ActionFrame
@@ -49,6 +51,9 @@ class GameManager:
         self.popup = None
 
     def simulate_move(self, actions):
+        if actions == SpecialAction.reset_game:
+            self.reset()
+            return None
         place_new_apple = False
         for i, snake in enumerate(self.snakes):
             if snake.alive:
@@ -103,6 +108,9 @@ class GameManager:
         while potential_apple_pos in slots_occupied_by_snakes:
             potential_apple_pos = Vector(random.randrange(self.grid_size.x), random.randrange(self.grid_size.y))
         self.apple.change_pos(potential_apple_pos)
+
+    def get_game_score(self):
+        return self.info_tracker.score
 
     def handle_collisions(self):
         if not self.is_multi:
@@ -162,7 +170,7 @@ class GameManager:
         self.popup = None
 
     def get_current_game_state(self):
-        return GameState(self.grid_size, self.apple.get_pos(), self.snakes[0], self.snakes[0].moving_direction)
+        return GameState(self.grid_size, self.apple.get_pos(), self.snakes[0], self.snakes[0].moving_direction, self.info_tracker.score)
 
     def get_action_frame(self):
         self.action_frame = ActionFrame(

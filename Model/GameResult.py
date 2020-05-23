@@ -1,5 +1,5 @@
 class GameResult:
-    def __init__(self, score, time, was_snake_idle):
+    def __init__(self, score, moves, was_snake_idle):
         self.score = score
-        self.time = time
+        self.moves = moves
         self.was_snake_idle = was_snake_idle

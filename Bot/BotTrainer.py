@@ -21,7 +21,8 @@ class BotTrainer:
     def perform_move(self, input):
         return self.current_neural_network.get_output(input)
 
-    def game_lost(self):
+    def game_lost(self, game_result):
+        print("Re: " + str(game_result.score) + " " + str(game_result.moves) + " " + str(game_result.was_snake_idle))
         self.current_index += 1
         if self.current_index >= len(self.population):
             self.breed_population()

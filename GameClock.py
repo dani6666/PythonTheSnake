@@ -47,5 +47,5 @@ class GameClock:
                     RenderingManager.render()
             else:
                 end_reason = None
-                self.frame_actions_manager.pass_lost_game_info()
+                self.frame_actions_manager.pass_lost_game_info(self.game_manager.get_game_score())
                 self.game_manager.reset()

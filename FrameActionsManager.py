@@ -29,5 +29,5 @@ class FrameActionsManager:
             thread.join()
             return self.bot_action_provider.retrieve_input()
 
-    def pass_lost_game_info(self):
-        self.bot_action_provider.inform_about_lose()
+    def pass_lost_game_info(self, score):
+        self.bot_action_provider.inform_about_lose(score)

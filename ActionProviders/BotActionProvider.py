@@ -15,5 +15,5 @@ class BotActionProvider:
     def start_thinking(self, game_state):
         self.move = self.bot.perform_move(game_state)
 
-    def inform_about_lose(self):
-        self.bot.game_lost()
+    def inform_about_lose(self, score):
+        self.bot.game_lost(score)
