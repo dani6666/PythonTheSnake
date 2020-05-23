@@ -1,10 +1,10 @@
 import math
 import os
+import random
 
 import numpy
 
 from Bot.BotTrainer import BotTrainer
-from Bot.Move import Move
 from Model.GameResult import GameResult
 from Model.SpecialAction import SpecialAction
 from Model.Vector import Vector
@@ -56,7 +56,12 @@ class BotManager:
         self.bot_trainer.game_lost(GameResult(score, self.total_moves, False))
 
     def from_game_state_to_matrix(self, game_state):
-        return numpy.random.random((1, 16)) * 10
+        result = numpy.random.random((1, 16)) *100
+        for i in range(10):
+            rand = random.randint(1, 15)
+            result[0][rand] = 0
+
+        return result
 
     def from_matrix_to_move(self, matrix):
         max = -math.inf
