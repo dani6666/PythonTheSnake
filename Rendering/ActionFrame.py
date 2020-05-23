@@ -17,7 +17,8 @@ class ActionFrame:
         self.components.append(component)
 
     def remove_rendering_component(self, component):
-        self.components.remove(component)
+        if component in self.components:
+            self.components.remove(component)
 
     def apply_absolute_cords(self, rendering_component):
         pos = rendering_component.position

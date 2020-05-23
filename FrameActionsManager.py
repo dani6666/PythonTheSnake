@@ -28,3 +28,6 @@ class FrameActionsManager:
         if self.bot_action_provider:
             thread.join()
             return self.bot_action_provider.retrieve_input()
+
+    def pass_lost_game_info(self):
+        self.bot_action_provider.inform_about_lose()

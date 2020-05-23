@@ -37,4 +37,4 @@ class GameInitializer:
         ResourceManager.initialize_score_bar(game_settings.board_size * 40)
         clock = GameClock(frame_actions_manager, game_manager, game_settings)
 
-        clock.start_game()
+        clock.start_game(game_settings.is_bot_game)

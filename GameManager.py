@@ -64,8 +64,7 @@ class GameManager:
                     snake.grow_pending = True
                     self.info_tracker.increment_score()
                     if self.info_tracker.score == self.grid_size.x * self.grid_size.y - 1:
-                        self.determine_winner_apple()
-                        return True
+                        return self.determine_winner_apple()
                     place_new_apple = True
 
         if place_new_apple:
@@ -89,14 +88,14 @@ class GameManager:
 
     def determine_winner_apple(self):
         if not self.is_multi:
-            self.call_popup(Reason.game_won)
+            return Reason.game_won
         else:
             if self.snakes[0].get_size() > self.snakes[1].get_size():
-                self.call_popup(Reason.p1_wins)
+                return Reason.p1_wins
             elif self.snakes[0].get_size() < self.snakes[1].get_size():
-                self.call_popup(Reason.p2_wins)
+                return Reason.p2_wins
             else:
-                self.call_popup(Reason.tie)
+                return Reason.tie
 
     def place_new_apple(self):
         potential_apple_pos = Vector(random.randrange(self.grid_size.x), random.randrange(self.grid_size.y))
@@ -108,8 +107,7 @@ class GameManager:
     def handle_collisions(self):
         if not self.is_multi:
             if self.snakes[0].check_collision():
-                self.call_popup(Reason.game_lost)
-                return True
+                return Reason.game_lost
         else:
             alive_n = 0
             dead = []
@@ -127,12 +125,10 @@ class GameManager:
                 if snake.alive:
                     alive_n += 1
             if not alive_n:
-                self.call_popup(Reason.tie)
-                return True
+                return Reason.tie
             elif alive_n == 1:
                 alive_i = [i for i in range(self.amount_of_players) if self.snakes[i].alive][0]
-                self.call_popup(alive_i)
-                return True
+                return alive_i
         return False
 
     def call_popup(self, reason):

@@ -8,10 +8,11 @@ class NeuralNetwork:
         self.network_weights = network_weights
 
     def get_output(self, input):
-        first_layer = self.sigmoid(numpy.dot(input, self.network_weights.input_first))
+        val = numpy.dot(input, self.network_weights.input_first)
+        first_layer = self.sigmoid(val)
         second_layer = self.sigmoid(numpy.dot(first_layer, self.network_weights.first_second))
 
         return self.sigmoid(numpy.dot(second_layer, self.network_weights.second_output))
 
     def sigmoid(self, x):
-        return 1.0 / (1 + numpy.exp(-x))
+        return x / (1 + numpy.exp(-x))

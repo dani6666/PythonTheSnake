@@ -1,5 +1,4 @@
 from Bot.BotManager import BotManager
-from Model.Vector import Vector
 
 
 class BotActionProvider:
@@ -14,7 +13,7 @@ class BotActionProvider:
         return self.move
 
     def start_thinking(self, game_state):
-        return self.bot.perform_move(game_state)
+        self.move = self.bot.perform_move(game_state)
 
     def inform_about_lose(self):
         self.bot.game_lost()
