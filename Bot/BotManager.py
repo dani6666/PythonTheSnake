@@ -55,19 +55,22 @@ class BotManager:
     def game_lost(self, score):
         self.bot_trainer.game_lost(GameResult(score, self.total_moves, False))
 
-    def from_game_state_to_matrix(self, game_state):
-        result = numpy.random.random((1, 16)) *100
+    @staticmethod
+    def from_game_state_to_matrix(game_state):
+        result = numpy.random.random((1, 16)) * 100
         for i in range(10):
             rand = random.randint(1, 15)
             result[0][rand] = 0
 
         return result
 
-    def from_matrix_to_move(self, matrix):
-        max = -math.inf
+    @staticmethod
+    def from_matrix_to_move(matrix):
+        max_val = -math.inf
+        index = None
         for i in range(4):
-            if max < matrix[0][i]:
+            if max_val < matrix[0][i]:
                 index = i
-                max = matrix[0][i]
+                max_val = matrix[0][i]
 
         return index

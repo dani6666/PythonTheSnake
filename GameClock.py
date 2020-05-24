@@ -21,7 +21,7 @@ class GameClock:
         while not done:
 
             while not end_reason:
-                clock.tick(20)
+                clock.tick(10)
                 actions = self.frame_actions_manager.carry_frame_actions(self.game_manager.get_current_game_state())
                 end_reason = self.game_manager.simulate_move(actions)
                 RenderingManager.render()

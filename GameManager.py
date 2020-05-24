@@ -1,7 +1,6 @@
 import random
 
 import Util
-from Model.GameResult import GameResult
 from Model.GameState import GameState
 from GameObjects.Snake import Snake
 from Model.SpecialAction import SpecialAction
@@ -53,7 +52,7 @@ class GameManager:
     def simulate_move(self, actions):
         if actions == SpecialAction.reset_game:
             self.reset()
-            return None
+            return False
         place_new_apple = False
         for i, snake in enumerate(self.snakes):
             if snake.alive:
@@ -152,12 +151,19 @@ class GameManager:
         snake_pos = Vector(random.randrange(self.grid_size.x), random.randrange(self.grid_size.y))
         self.snakes[0].reset(snake_pos)
         new_snakes.append(self.snakes[0])
+        new_snakes[0].grow_pending = True
+        new_snakes[0].move()
+        self.handle_border_cross(new_snakes[0])
         for snake in self.snakes[1:]:
             snake_pos = Vector(random.randrange(self.grid_size.x), random.randrange(self.grid_size.y))
-            while snake_pos in [s.head.position for s in new_snakes]:
-                snake_pos = Vector(random.randrange(self.grid_size.x), random.randrange(self.grid_size.y))
+            occupied_axis = [snake.head.position.y for snake in new_snakes]
+            while snake_pos.y in occupied_axis:
+                snake_pos.y = random.randrange(self.grid_size.y)
             snake.reset(snake_pos)
             new_snakes.append(snake)
+            new_snakes[-1].grow_pending = True
+            new_snakes[-1].move()
+            self.handle_border_cross(new_snakes[-1])
         self.snakes = new_snakes
         apple_pos = Vector(random.randrange(self.grid_size.x), random.randrange(self.grid_size.y))
         while apple_pos in [s.head.position for s in self.snakes]:
@@ -170,7 +176,8 @@ class GameManager:
         self.popup = None
 
     def get_current_game_state(self):
-        return GameState(self.grid_size, self.apple.get_pos(), self.snakes[0], self.snakes[0].moving_direction, self.info_tracker.score)
+        return GameState(self.grid_size, self.apple.get_pos(), self.snakes[0], self.snakes[0].moving_direction,
+                         self.info_tracker.score)
 
     def get_action_frame(self):
         self.action_frame = ActionFrame(
