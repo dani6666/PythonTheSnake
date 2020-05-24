@@ -1,4 +1,4 @@
-from Model.Vector import Vector
+from Bot.BotManager import BotManager
 
 
 class BotActionProvider:
@@ -7,14 +7,13 @@ class BotActionProvider:
 
     def __init__(self):
         self.move = None
+        self.bot = BotManager()
 
     def retrieve_input(self):
         return self.move
 
     def start_thinking(self, game_state):
-        if BotActionProvider.bool:
-            self.move = Vector(0, 1)
-        else:
-            self.move = Vector(1, 0)
+        self.move = self.bot.perform_move(game_state)
 
-        BotActionProvider.bool = not BotActionProvider.bool
+    def inform_about_lose(self, score):
+        self.bot.game_lost(score)

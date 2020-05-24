@@ -16,7 +16,7 @@ class FrameActionsManager:
         thread = None
 
         if self.bot_action_provider:
-            thread = threading.Thread(target=self.bot_action_provider.start_thinking, args=game_state)
+            thread = threading.Thread(target=self.bot_action_provider.start_thinking, args=(game_state,))
             thread.start()
 
         if self.rendering_enabled:
@@ -28,3 +28,6 @@ class FrameActionsManager:
         if self.bot_action_provider:
             thread.join()
             return self.bot_action_provider.retrieve_input()
+
+    def pass_lost_game_info(self, score):
+        self.bot_action_provider.inform_about_lose(score)

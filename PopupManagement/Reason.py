@@ -7,3 +7,4 @@ class Reason:
     tie = 4
     game_won = 5
     game_lost = 6
+    game_reset = 7
