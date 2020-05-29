@@ -35,6 +35,6 @@ class GameInitializer:
                                    game_settings.amount_of_players)
         RenderingManager.add_action_frame(game_manager.get_action_frame())
         ResourceManager.initialize_score_bar(game_settings.board_size * 40)
-        clock = GameClock(frame_actions_manager, game_manager, game_settings)
+        clock = GameClock(frame_actions_manager, game_manager)
 
-        clock.start_game(game_settings.is_bot_game)
+        clock.start_game(game_settings.is_bot_game, game_settings.rendering_enabled)

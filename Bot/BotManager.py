@@ -18,12 +18,7 @@ class BotManager:
         self.moves_without_eating = 0
         self.total_moves = 0
         self.last_apple_position = None
-        if os.path.exists(BotManager.bot_resources_file_name):
-            file = open(BotManager.bot_resources_file_name)
-            data = file.read()
-            file.close()
-        else:
-            self.bot_trainer = BotTrainer()
+        self.bot_trainer = BotTrainer()
 
     def perform_move(self, game_state):
         self.total_moves += 1
