@@ -8,12 +8,11 @@ from ActionProviders.QuitHandler import QuitHandler
 
 class GameClock:
 
-    def __init__(self, frame_actions_manager, game_manager, game_settings):
+    def __init__(self, frame_actions_manager, game_manager):
         self.frame_actions_manager = frame_actions_manager
         self.game_manager = game_manager
-        self.game_settings = game_settings
 
-    def start_game(self, is_bot_game):
+    def start_game(self, is_bot_game, rendering_enabled):
         clock = pygame.time.Clock()
         end_reason = None
         done = False
@@ -21,10 +20,10 @@ class GameClock:
         while not done:
 
             while not end_reason:
-                clock.tick(10)
+                if rendering_enabled:
+                    clock.tick(10)
                 actions = self.frame_actions_manager.carry_frame_actions(self.game_manager.get_current_game_state())
                 end_reason = self.game_manager.simulate_move(actions)
-                RenderingManager.render()
 
             if not is_bot_game:
                 self.game_manager.call_popup(end_reason)

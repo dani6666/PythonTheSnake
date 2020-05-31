@@ -3,3 +3,4 @@ class NeuralNetworkData:
         self.input_first = input_first
         self.first_second = first_second
         self.second_output = second_output
+        self.game_result = None

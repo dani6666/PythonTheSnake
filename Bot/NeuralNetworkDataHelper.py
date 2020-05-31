@@ -14,7 +14,7 @@ class NeuralNetworkDataHelper:
 
     @staticmethod
     def crossover_data(first_data, second_data):
-        result = NeuralNetworkData(numpy.zeros(16, 12), numpy.zeros(12, 12), numpy.zeros(12, 4))
+        result = NeuralNetworkData(numpy.zeros((16, 12)), numpy.zeros((12, 12)), numpy.zeros((12, 4)))
         for i in range(16):
             cross_point = random.randrange(-1, 13)
             for j in range(12):
@@ -58,3 +58,5 @@ class NeuralNetworkDataHelper:
             first_mutation = random.randrange(0, 2)
             for j in range(first_mutation, first_mutation + 2):
                 result.input_first[i][j] += random.uniform(-1, 1) / 10
+
+        return result
