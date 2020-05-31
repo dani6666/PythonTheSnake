@@ -8,6 +8,7 @@ from Bot.BotTrainer import BotTrainer
 from Model.GameResult import GameResult
 from Model.SpecialAction import SpecialAction
 from Model.Vector import Vector
+from Bot.Walk import Walk
 
 
 class BotManager:
@@ -57,10 +58,10 @@ class BotManager:
 
     @staticmethod
     def from_game_state_to_matrix(game_state):
-        result = numpy.random.random((1, 16)) * 100
-        for i in range(10):
-            rand = random.randint(1, 15)
-            result[0][rand] = 0
+        result = \
+            Walk(game_state.snake.position, [game_state.apple_position], game_state.grid_size).walk() + \
+            Walk(game_state.snake.position, game_state.snake.get_slots_occupied_by_body(), game_state.grid_size).walk()
+        result = numpy.array([result])
 
         return result
 

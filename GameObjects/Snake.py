@@ -16,6 +16,10 @@ class Snake:
 
         self.alive = True
 
+    @property
+    def position(self):
+        return self.head.position
+
     def move(self):
 
         previous_head_pos = self.head.move(self.moving_direction)
