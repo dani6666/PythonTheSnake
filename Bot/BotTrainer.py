@@ -23,11 +23,12 @@ class BotTrainer:
 
         self.current_neural_network = NeuralNetwork(self.population[0])
 
-    def perform_move(self, input):
-        return self.current_neural_network.get_output(input)
+    def perform_move(self, input_var):
+        return self.current_neural_network.get_output(input_var)
 
     def game_lost(self, game_result):
-        print("Re: " + str(game_result.score) + " " + str(game_result.moves) + " " + str(game_result.was_snake_idle)+ " - " + str(self.current_index))
+        print("Re: " + str(game_result.score) + " " + str(game_result.moves) + " " + str(
+            game_result.was_snake_idle) + " - " + str(self.current_index))
         self.population[self.current_index].game_result = game_result
         self.current_index += 1
         if self.current_index >= len(self.population):
@@ -38,7 +39,7 @@ class BotTrainer:
 
     def breed_population(self):
         print("Breeding !")
-        self.population = sorted(self.population, key=lambda p: p.game_result)
+        self.population = sorted(self.population, key=lambda p: p.game_result, reverse=True)
         BotFilesManager.save_bot(self.population)
 
         new_population = []
@@ -51,13 +52,14 @@ class BotTrainer:
             breeding_population.append(element)
 
         for t in range(20):
-            print(str(len(new_population)) + " - "+str(t))
+            print(str(len(new_population)) + " - " + str(t))
             for i in range(BotTrainer.total_elements_for_breed):
                 for j in range(BotTrainer.total_elements_for_breed):
                     if len(new_population) == BotTrainer.population_count:
                         break
-                    if i != j and random.random > 0.9:
-                        new_element = NeuralNetworkDataHelper.crossover_data(breeding_population[i], breeding_population[j])
+                    if i != j and random.uniform(0, 1) > 0.9:
+                        new_element = NeuralNetworkDataHelper.crossover_data(breeding_population[i],
+                                                                             breeding_population[j])
 
                         if not new_population.__contains__(new_element):
                             new_population.append(new_element)
@@ -69,4 +71,3 @@ class BotTrainer:
             new_population[index] = NeuralNetworkDataHelper.mutate_data(new_population[index])
 
         self.population = new_population
-

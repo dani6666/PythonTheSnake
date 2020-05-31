@@ -23,3 +23,6 @@ class Vector:
 
     def to_tup(self):
         return self.x, self.y
+
+    def __int__(self):
+        return abs(self.x) + abs(self.y)

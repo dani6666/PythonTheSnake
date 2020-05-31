@@ -1,4 +1,3 @@
-import json
 import os
 
 import jsonpickle as jsonpickle
@@ -26,5 +25,3 @@ class BotFilesManager:
         file.write(data)
         file.close()
         print("Saving !")
-
-
