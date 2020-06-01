@@ -35,7 +35,7 @@ class Strider:
         if self.position in Strider.destinations:
             self.result = self.distance * int(self.moving_direction)
 
-        if self.diagonal and not self.result:
+        if self.diagonal:
             minimal_distance = None
             for i in range(1, self.distance + 1):
                 if \
