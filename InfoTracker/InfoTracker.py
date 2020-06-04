@@ -27,6 +27,9 @@ class InfoTracker:
         self.score_tracker.reset()
         self.time_tracker.reset()
 
+    def unpause(self):
+        self.time_tracker.unpause()
+
     def get_rendering_components(self):
         return [RenderPacket(ResourceManager.info_bar, self.position)] + \
             self.time_tracker.get_rendering_components() + self.score_tracker.get_rendering_components()

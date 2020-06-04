@@ -7,8 +7,7 @@ class PlayerActionProvider:
         self.input_sieves = input_sieves
         self.players = len(input_sieves)
 
-    def retrieve_input(self):
-        events = [e for e in pygame.event.get() if e.type == pygame.KEYDOWN]
+    def retrieve_input(self, events):
         actions = []
 
         for i in range(self.players):

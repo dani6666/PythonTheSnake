@@ -8,3 +8,4 @@ class Reason:
     game_won = 5
     game_lost = 6
     game_reset = 7
+    game_pause = 8
