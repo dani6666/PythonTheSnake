@@ -12,16 +12,13 @@ class BotFilesManager:
             file = open(BotFilesManager.bot_resources_file_name)
             data = file.read()
             file.close()
-            print("Loading !")
             return jsonpickle.loads(data)
         else:
             return None
 
     @staticmethod
     def save_bot(network_weights):
-
         data = jsonpickle.dumps(network_weights)
         file = open(BotFilesManager.bot_resources_file_name, mode="w")
         file.write(data)
         file.close()
-        print("Saving !")
