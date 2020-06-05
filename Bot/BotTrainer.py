@@ -53,8 +53,7 @@ class BotTrainer:
                 element = random.choice(random_selection)
             breeding_population.append(element)
 
-        for t in range(20):
-            print(str(len(new_population)) + " - " + str(t))
+        while len(new_population) != BotTrainer.population_count:
             for i in range(BotTrainer.total_elements_for_breed):
                 for j in range(BotTrainer.total_elements_for_breed):
                     if len(new_population) == BotTrainer.population_count:
@@ -70,4 +69,6 @@ class BotTrainer:
             index = random.randint(0, BotTrainer.population_count)
             new_population[index] = NeuralNetworkDataHelper.mutate_data(new_population[index])
 
+        if len(new_population) != BotTrainer.population_count:
+            raise Exception("Wrong breeding")
         self.population = new_population
