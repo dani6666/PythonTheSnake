@@ -8,7 +8,7 @@ from Bot.NeuralNetworkDataHelper import NeuralNetworkDataHelper
 class BotTrainer:
     population_count = 2000
     top_elements_for_breed = 400
-    total_elements_for_breed = 220
+    total_elements_for_breed = 420
     random_elements_for_breed = 20
     mutations_count = 200
 
