@@ -27,6 +27,8 @@ class BotTrainer:
         return self.current_neural_network.get_output(input_var)
 
     def game_lost(self, game_result):
+        if game_result.was_snake_idle:
+            game_result.score += 5
 
         self.population[self.current_index].game_result = game_result
         self.current_index += 1
@@ -40,8 +42,8 @@ class BotTrainer:
         self.population = sorted(self.population, key=lambda p: p.game_result, reverse=True)
 
         print_result = self.population[0].game_result
-        print("Score: " + str(print_result.score) + " Moves: " + str(print_result.moves) + " Alive: " +
-              str(print_result.was_snake_idle))
+        print("Score: " + str(print_result.score) + " Moves: " + str(print_result.moves) +
+              " Alive: " + str(print_result.was_snake_idle))
         BotFilesManager.save_bot(self.population)
 
         new_population = []
@@ -59,16 +61,14 @@ class BotTrainer:
                     if len(new_population) == BotTrainer.population_count:
                         break
                     if i != j and random.random() > 0.9:
-                        new_element = NeuralNetworkDataHelper.crossover_data(breeding_population[i],
-                                                                             breeding_population[j])
+                        new_element = NeuralNetworkDataHelper.crossover_data(
+                            breeding_population[i], breeding_population[j])
 
                         if not new_population.__contains__(new_element):
                             new_population.append(new_element)
 
         for i in range(BotTrainer.mutations_count):
-            index = random.randint(0, BotTrainer.population_count)
+            index = random.randint(0, BotTrainer.population_count - 1)
             new_population[index] = NeuralNetworkDataHelper.mutate_data(new_population[index])
 
-        if len(new_population) != BotTrainer.population_count:
-            raise Exception("Wrong breeding")
         self.population = new_population

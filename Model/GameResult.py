@@ -9,16 +9,12 @@ class GameResult:
 
     def __lt__(self, other):
         if self.score == other.score:
-            if self.was_snake_idle == other.was_snake_idle:
-                return self.moves > other.moves
-            return not self.was_snake_idle
+            return self.moves > other.moves
         return self.score < other.score
 
     def __le__(self, other):
         if self.score == other.score:
-            if self.was_snake_idle == other.was_snake_idle:
-                return self.moves >= other.moves
-            return not self.was_snake_idle
+            return self.moves >= other.moves
         return self.score < other.score
 
     def __ne__(self, other):
@@ -26,14 +22,10 @@ class GameResult:
 
     def __ge__(self, other):
         if self.score == other.score:
-            if self.was_snake_idle == other.was_snake_idle:
-                return self.moves <= other.moves
-            return self.was_snake_idle
+            return self.moves <= other.moves
         return self.score > other.score
 
     def __gt__(self, other):
         if self.score == other.score:
-            if self.was_snake_idle == other.was_snake_idle:
-                return self.moves < other.moves
-            return self.was_snake_idle
+            return self.moves < other.moves
         return self.score > other.score
