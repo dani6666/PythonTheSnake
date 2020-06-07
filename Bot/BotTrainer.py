@@ -68,7 +68,7 @@ class BotTrainer:
                             new_population.append(new_element)
 
         for i in range(BotTrainer.mutations_count):
-            index = random.randint(0, BotTrainer.population_count - 1)
+            index = random.randrange(0, BotTrainer.population_count)
             new_population[index] = NeuralNetworkDataHelper.mutate_data(new_population[index])
 
         self.population = new_population
