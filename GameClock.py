@@ -20,7 +20,7 @@ class GameClock:
 
         while not done:
 
-            while not end_reason:
+            while end_reason is None:
                 if rendering_enabled:
                     clock.tick(10)
                 actions = self.frame_actions_manager.carry_frame_actions(self.game_manager.get_current_game_state())
