@@ -138,7 +138,7 @@ class GameManager:
             elif alive_n == 1:
                 alive_i = [i for i in range(self.amount_of_players) if self.snakes[i].alive][0]
                 return alive_i
-        return False
+        return None
 
     def call_popup(self, reason):
         self.popup = PopupAssembly.get_standard_finish_popup(
