@@ -5,7 +5,7 @@ class GameResult:
         self.was_snake_idle = was_snake_idle
 
     def __eq__(self, other):
-        return self.score == other.score and self.moves == other.moves and self.was_snake_idle == other.was_snake_idle
+        return self.score == other.score and self.moves == other.moves
 
     def __lt__(self, other):
         if self.score == other.score:
@@ -18,7 +18,7 @@ class GameResult:
         return self.score < other.score
 
     def __ne__(self, other):
-        return self.score != other.score or self.moves != other.moves or self.was_snake_idle != other.was_snake_idle
+        return self.score != other.score or self.moves != other.moves
 
     def __ge__(self, other):
         if self.score == other.score:
