@@ -1,6 +1,6 @@
 import pygame
 
-from Model.Vector import Vector
+from PopupManagement.Reason import Reason
 from Rendering.RenderingManager import RenderingManager
 from ActionProviders.QuitHandler import QuitHandler
 from PopupManagement.PopupHandler import PopupHandler
@@ -26,7 +26,7 @@ class GameClock:
                 actions = self.frame_actions_manager.carry_frame_actions(self.game_manager.get_current_game_state())
                 end_reason = self.game_manager.simulate_move(actions)
 
-            if not is_bot_game:
+            if not is_bot_game or end_reason == Reason.game_pause:
                 self.game_manager.call_popup(end_reason)
                 popup = self.game_manager.popup
                 popup_closed = False
