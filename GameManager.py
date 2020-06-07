@@ -53,6 +53,8 @@ class GameManager:
         if actions == SpecialAction.reset_game:
             self.reset()
             return False
+        elif actions == SpecialAction.game_paused:
+            return Reason.game_pause
         place_new_apple = False
         for i, snake in enumerate(self.snakes):
             if snake.alive:
@@ -172,6 +174,11 @@ class GameManager:
 
         self.info_tracker.reset()
 
+        self.action_frame.remove_rendering_component(self.popup)
+        self.popup = None
+
+    def unpause(self):
+        self.info_tracker.unpause()
         self.action_frame.remove_rendering_component(self.popup)
         self.popup = None
 
