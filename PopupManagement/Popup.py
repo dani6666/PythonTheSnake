@@ -5,7 +5,8 @@ from Model.Vector import Vector
 
 class Popup:
 
-    def __init__(self, position, dimensions, message_sprite, buttons):
+    def __init__(self, p_type, position, dimensions, message_sprite, buttons):
+        self.type = p_type
         self.position = position
         self.rect = pygame.Surface((dimensions.x * 40, dimensions.y * 40))
         self.rect.fill((50, 50, 50))

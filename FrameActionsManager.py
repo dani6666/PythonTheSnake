@@ -1,7 +1,10 @@
 import threading
+import pygame
 
 from Rendering.RenderingManager import RenderingManager
 from ActionProviders.QuitHandler import QuitHandler
+from ActionProviders.PauseActionProvider import PauseActionProvider
+from Model.SpecialAction import SpecialAction
 
 
 class FrameActionsManager:
@@ -13,6 +16,9 @@ class FrameActionsManager:
 
     def carry_frame_actions(self, game_state):
         QuitHandler.check_quit()
+        events = [e for e in pygame.event.get() if e.type == pygame.KEYDOWN]
+        if PauseActionProvider.check_pause(events):
+            return SpecialAction.game_paused
         thread = None
 
         if self.bot_action_provider:
@@ -23,7 +29,7 @@ class FrameActionsManager:
             RenderingManager.render()
 
         if self.player_action_provider:
-            return self.player_action_provider.retrieve_input()
+            return self.player_action_provider.retrieve_input(events)
 
         if self.bot_action_provider:
             thread.join()
